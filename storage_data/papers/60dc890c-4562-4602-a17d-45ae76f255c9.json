@@ -1,0 +1,32 @@
+{
+  "job_id": "60dc890c-4562-4602-a17d-45ae76f255c9",
+  "created_at": "2025-11-19T23:18:06.273725",
+  "status": "completed",
+  "filename": "Kanishk_Resume.pdf",
+  "result": {
+    "metadata": {
+      "title": "Unknown Title",
+      "authors": "Unknown Authors"
+    },
+    "key_concepts": {
+      "error": "Gemini API key not configured"
+    },
+    "problem_statement": {
+      "error": "Gemini API key not configured"
+    },
+    "full_explanation": {
+      "error": "Gemini API key not configured"
+    },
+    "pseudo_code": {
+      "error": "Gemini API key not configured"
+    },
+    "knowledge_graph": {
+      "nodes": [],
+      "edges": []
+    },
+    "architecture_deep_dive": {
+      "error": "Gemini API key not configured"
+    },
+    "model_file": ""
+  }
+}
