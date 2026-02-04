@@ -4,7 +4,6 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import { Card } from '../../../components/Card';
 import KeyConcepts from '../../../components/KeyConcepts';
 import ProblemStatement from '../../../components/ProblemStatement';
 import FullExplanation from '../../../components/FullExplanation';
@@ -14,6 +13,7 @@ import ModelFile from '../../../components/ModelFile';
 const KnowledgeGraph = dynamic(() => import('../../../components/KnowledgeGraph'), { ssr: false });
 import { Loader } from '../../../components/Loader';
 import ChatPanel from '../../../components/ChatPanel';
+import { apiFetch } from '../../../lib/api';
 
 export default function ResultsPage({ params }: { params: { jobId: string } }) {
   const { jobId } = params;
@@ -30,7 +30,7 @@ export default function ResultsPage({ params }: { params: { jobId: string } }) {
     
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/api/status/${jobId}`);
+        const response = await apiFetch(`/api/status/${jobId}`);
         
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
@@ -43,7 +43,7 @@ export default function ResultsPage({ params }: { params: { jobId: string } }) {
           setLoading(false);
           clearInterval(pollingInterval);
         } 
-        else if (responseData.status === 'in_progress') {
+        else if (responseData.status === 'in_progress' || responseData.status === 'processing') {
           setStatusMessage(`Analyzing paper: ${responseData.filename || 'your document'}`);
           
           if (progressCounter < 90) {
@@ -82,32 +82,29 @@ export default function ResultsPage({ params }: { params: { jobId: string } }) {
 
   if (loading) {
     return (
-      <div className="container mx-auto px-4 py-12">
-        <div className="max-w-5xl mx-auto">
-          <div className="flex justify-between items-center mb-6">
-            <Link 
-              href="/"
-              className="text-sm font-medium text-primary-600 hover:text-primary-500 transition-colors"
-            >
-              &larr; Back to Home
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
+        <div className="mx-auto max-w-3xl">
+          <div className="flex items-center justify-between gap-4">
+            <Link href="/" className="text-sm font-semibold text-primary-700 hover:text-primary-800">
+              ← Back home
             </Link>
-            <span className="text-sm text-neutral-500">Job ID: {jobId}</span>
+            <span className="text-xs text-neutral-500">Job ID: {jobId}</span>
           </div>
-          
-          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-8">
+
+          <div className="mt-6 app-surface rounded-3xl p-6 sm:p-10 shadow-soft">
             <Loader message={statusMessage} />
-            
+
             <div className="mt-8 max-w-md mx-auto">
-              <div className="w-full bg-neutral-200 rounded-full h-2.5">
-                <div 
-                  className="bg-primary-600 h-2.5 rounded-full transition-all duration-500" 
+              <div className="w-full bg-neutral-200/80 rounded-full h-2.5 overflow-hidden">
+                <div
+                  className="bg-primary-600 h-2.5 rounded-full transition-all duration-500"
                   style={{ width: `${progress}%` }}
-                ></div>
+                />
               </div>
               <div className="flex justify-between mt-2 text-xs text-neutral-500">
-                <span>Uploading</span>
-                <span>Analyzing</span>
-                <span>Formatting</span>
+                <span>Upload</span>
+                <span>Analyze</span>
+                <span>Format</span>
               </div>
             </div>
           </div>
@@ -118,139 +115,127 @@ export default function ResultsPage({ params }: { params: { jobId: string } }) {
 
   if (!data || !data.result) {
     return (
-      <main className="min-h-screen flex flex-col">
-        <header className="bg-white shadow-sm">
-          <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold text-primary-600">Analysis Results</h1>
-          </div>
-        </header>
-        <div className="flex-grow flex items-center justify-center">
-          <div className="text-center">
-            <h2 className="text-xl font-semibold mb-4 text-neutral-700">Analysis not found</h2>
-            <p className="mb-6 text-neutral-600">The requested analysis could not be found or has not been completed yet.</p>
-            <Link href="/upload"
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
-              Try another paper
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
+        <div className="mx-auto max-w-2xl text-center">
+          <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900">
+            {error ? 'Something went wrong' : 'Analysis not found'}
+          </h1>
+          <p className="mt-2 text-neutral-600">
+            {error
+              ? error
+              : 'The requested analysis could not be found, or it hasn’t completed yet.'}
+          </p>
+          <div className="mt-6 flex justify-center">
+            <Link
+              href="/upload"
+              className="inline-flex items-center justify-center rounded-2xl bg-primary-600 px-5 py-3 text-sm font-semibold text-white shadow-soft hover:bg-primary-700 transition-colors app-ring"
+            >
+              Analyze another paper
             </Link>
           </div>
         </div>
-      </main>
+      </div>
     );
   }
 
   const { metadata, key_concepts, problem_statement, full_explanation, pseudo_code, knowledge_graph, architecture_deep_dive, model_file } = data.result;
   
   return (
-    <main className="min-h-screen flex flex-col">
-      <header className="bg-white shadow-sm sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-            <h1 className="text-3xl font-bold text-primary-600">Paper Analysis</h1>
-            <Link href="/upload" className="mt-2 md:mt-0 text-sm text-primary-600 hover:text-primary-500">
-              Analyze another paper
-            </Link>
-          </div>
+    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-10 lg:px-8">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        <div className="min-w-0">
+          <div className="text-xs font-semibold uppercase tracking-wide text-neutral-500">Paper</div>
+          <h1 className="mt-1 text-balance text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900">
+            {metadata?.title || 'Untitled'}
+          </h1>
+          <p className="mt-2 text-sm text-neutral-600">{metadata?.authors || 'Unknown authors'}</p>
         </div>
-      </header>
+        <div className="flex flex-col gap-2 sm:items-end">
+          <Link
+            href="/upload"
+            className="inline-flex items-center justify-center rounded-2xl bg-primary-600 px-4 py-2.5 text-sm font-semibold text-white shadow-soft hover:bg-primary-700 transition-colors app-ring"
+          >
+            Analyze another
+          </Link>
+          <div className="text-xs text-neutral-400">Job ID: {jobId}</div>
+        </div>
+      </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 flex-grow">
-        <div className="mb-8">
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-neutral-200">
-            <h2 className="text-2xl font-bold text-neutral-800 mb-2">{metadata.title}</h2>
-            <p className="text-neutral-600">{metadata.authors}</p>
-          </div>
+      {error && (
+        <div className="mt-6 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
+          {error}
         </div>
-        
-        {/* Tab Navigation */}
-        <div className="mb-6">
-          <div className="border-b border-neutral-200">
-            <nav className="-mb-px flex space-x-8">
-              <button
-                onClick={() => setActiveTab('summary')}
-                className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'summary' ? 'border-primary-500 text-primary-600' : 'border-transparent text-neutral-500 hover:text-neutral-700 hover:border-neutral-300'}`}
-              >
-                Summary View
-              </button>
-              <button
-                onClick={() => setActiveTab('knowledge-graph')}
-                className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'knowledge-graph' ? 'border-primary-500 text-primary-600' : 'border-transparent text-neutral-500 hover:text-neutral-700 hover:border-neutral-300'}`}
-              >
-                Knowledge Graph
-              </button>
-              <button
-                onClick={() => setActiveTab('implementation')}
-                className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'implementation' ? 'border-primary-500 text-primary-600' : 'border-transparent text-neutral-500 hover:text-neutral-700 hover:border-neutral-300'}`}
-              >
-                Implementation
-              </button>
-              <button
-                onClick={() => setActiveTab('architecture-deep-dive')}
-                className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'architecture-deep-dive' ? 'border-primary-500 text-primary-600' : 'border-transparent text-neutral-500 hover:text-neutral-700 hover:border-neutral-300'}`}
-              >
-                Architecture Deep Dive
-              </button>
-              <button
-                onClick={() => setActiveTab('model-file')}
-                className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'model-file' ? 'border-primary-500 text-primary-600' : 'border-transparent text-neutral-500 hover:text-neutral-700 hover:border-neutral-300'}`}
-              >
-                Model File
-              </button>
-            </nav>
-          </div>
-        </div>
+      )}
 
-        {/* Tab Content */}
+      {/* Tabs */}
+      <div className="mt-8">
+        <div className="flex flex-wrap gap-2">
+          {[
+            { id: 'summary', label: 'Summary' },
+            { id: 'knowledge-graph', label: 'Knowledge graph' },
+            { id: 'implementation', label: 'Implementation' },
+            { id: 'architecture-deep-dive', label: 'Architecture' },
+            { id: 'model-file', label: 'Model file' },
+          ].map((t) => (
+            <button
+              key={t.id}
+              onClick={() => setActiveTab(t.id)}
+              className={`rounded-2xl px-3.5 py-2 text-sm font-semibold transition-colors app-ring ${
+                activeTab === t.id
+                  ? 'bg-primary-600 text-white shadow-soft'
+                  : 'border border-neutral-200/80 bg-white/60 text-neutral-700 hover:bg-white'
+              }`}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Tab Content */}
+      <div className="mt-6 pb-20">
         {activeTab === 'summary' && (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <KeyConcepts data={key_concepts} />
               <ProblemStatement data={problem_statement} />
             </div>
 
-            <div className="mb-8">
+            <div className="mt-6">
               <FullExplanation data={full_explanation} />
             </div>
           </>
         )}
-        
+
         {activeTab === 'knowledge-graph' && (
-          <div className="mb-8">
-            <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
-              <h2 className="text-xl font-bold text-neutral-800 mb-4">Knowledge Graph</h2>
-              <p className="text-neutral-600 mb-6">This visual representation shows the key concepts and their relationships within the research paper. Click on nodes to explore connections.</p>
-              
-              <div className="h-[600px] w-full">
-                <KnowledgeGraph 
-                  graphData={knowledge_graph || { nodes: [], edges: [] }} 
-                  height={600} 
-                  width={1100} 
-                />
-              </div>
+          <div className="app-card rounded-2xl shadow-soft overflow-hidden">
+            <div className="px-6 py-4 border-b border-neutral-200/70 bg-white/50">
+              <h2 className="text-base sm:text-lg font-semibold text-neutral-900">Knowledge graph</h2>
+              <p className="mt-1 text-sm text-neutral-600">
+                Visual map of concepts and relationships. Click nodes to inspect details.
+              </p>
+            </div>
+            <div className="p-4 sm:p-6">
+              <KnowledgeGraph graphData={knowledge_graph || { nodes: [], edges: [] }} height={600} />
             </div>
           </div>
         )}
-        
+
         {activeTab === 'implementation' && (
-          <div className="mb-8">
-            <PseudoCode data={pseudo_code} />
-          </div>
+          <PseudoCode data={pseudo_code} />
         )}
-        
+
         {activeTab === 'architecture-deep-dive' && (
-          <div className="mb-8">
-            <ArchitectureDeepDive data={architecture_deep_dive} />
-          </div>
+          <ArchitectureDeepDive data={architecture_deep_dive} />
         )}
 
         {activeTab === 'model-file' && (
-          <div className="mb-8">
-            <ModelFile code={typeof model_file === 'string' ? model_file : (model_file?.code || '')} />
-          </div>
+          <ModelFile code={typeof model_file === 'string' ? model_file : (model_file?.code || '')} />
         )}
       </div>
       
       {/* Chat Panel */}
       <ChatPanel jobId={jobId} />
-    </main>
+    </div>
   );
 }

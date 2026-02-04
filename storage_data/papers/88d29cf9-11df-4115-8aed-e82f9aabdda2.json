@@ -1,0 +1,232 @@
+{
+  "job_id": "88d29cf9-11df-4115-8aed-e82f9aabdda2",
+  "created_at": "2026-02-05T00:46:35.504345",
+  "status": "completed",
+  "filename": "NIPS-2017-attention-is-all-you-need-Paper (1).pdf",
+  "result": {
+    "metadata": {
+      "title": "Attention is All you Need",
+      "authors": "Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin"
+    },
+    "key_concepts": {
+      "key_concepts": [
+        {
+          "name": "Transformer",
+          "category": "algorithm",
+          "explanation": "A new simple network architecture based solely on attention mechanisms, dispensing with recurrence and convolutions entirely.",
+          "relevance": "The Transformer is the main contribution of the paper, and it is used to achieve state-of-the-art results in machine translation tasks."
+        },
+        {
+          "name": "Self-Attention",
+          "category": "algorithm",
+          "explanation": "An attention mechanism relating different positions of a single sequence to compute a representation of the sequence.",
+          "relevance": "Self-Attention is used in the Transformer to draw global dependencies between input and output sequences."
+        },
+        {
+          "name": "Multi-Head Attention",
+          "category": "algorithm",
+          "explanation": "A variant of self-attention that uses multiple attention heads to jointly attend to information from different representation subspaces.",
+          "relevance": "Multi-Head Attention is used in the Transformer to improve the model's ability to capture long-range dependencies."
+        },
+        {
+          "name": "Scaled Dot-Product Attention",
+          "category": "algorithm",
+          "explanation": "A specific attention mechanism that uses dot products to compute the weights of the attention function.",
+          "relevance": "Scaled Dot-Product Attention is used in the Transformer to compute the attention weights."
+        },
+        {
+          "name": "Positional Encoding",
+          "category": "algorithm",
+          "explanation": "A technique used to inject information about the relative or absolute position of tokens in a sequence.",
+          "relevance": "Positional Encoding is used in the Transformer to make use of the order of the sequence."
+        },
+        {
+          "name": "Residual Connection",
+          "category": "algorithm",
+          "explanation": "A technique used to facilitate the training of deep neural networks by adding the input to the output of each layer.",
+          "relevance": "Residual Connection is used in the Transformer to improve the model's ability to learn complex representations."
+        },
+        {
+          "name": "Layer Normalization",
+          "category": "algorithm",
+          "explanation": "A technique used to normalize the activations of each layer in a neural network.",
+          "relevance": "Layer Normalization is used in the Transformer to improve the model's stability and speed up training."
+        }
+      ],
+      "core_technologies": [
+        "Deep Learning",
+        "Attention Mechanisms",
+        "Transformers",
+        "Self-Attention",
+        "Multi-Head Attention",
+        "Scaled Dot-Product Attention",
+        "Positional Encoding",
+        "Residual Connection",
+        "Layer Normalization"
+      ],
+      "novelty_aspects": [
+        "The Transformer architecture, which uses self-attention and multi-head attention to draw global dependencies between input and output sequences.",
+        "The use of positional encoding to inject information about the relative or absolute position of tokens in a sequence.",
+        "The use of residual connections and layer normalization to improve the model's stability and speed up training."
+      ],
+      "field_of_study": "Natural Language Processing",
+      "interdisciplinary_connections": [
+        "Computer Science",
+        "Machine Learning",
+        "Deep Learning",
+        "Artificial Intelligence"
+      ]
+    },
+    "problem_statement": {
+      "problem": "Improving the efficiency and effectiveness of sequence transduction models, particularly in machine translation tasks, by reducing sequential computation and leveraging self-attention mechanisms.",
+      "research_questions": [
+        "Can a sequence transduction model be designed that relies entirely on self-attention mechanisms, eliminating the need for recurrent or convolutional neural networks?",
+        "How can self-attention mechanisms be optimized to improve the efficiency and effectiveness of sequence transduction models?",
+        "Can a model architecture be developed that allows for more parallelization and reduces the computational cost of training sequence transduction models?"
+      ],
+      "existing_approaches": [
+        {
+          "name": "Recurrent Neural Networks (RNNs)",
+          "limitations": [
+            "Sequential computation limits parallelization and increases training time",
+            "Difficulty in learning dependencies between distant positions",
+            "Inefficient use of computational resources"
+          ]
+        },
+        {
+          "name": "Convolutional Neural Networks (CNNs)",
+          "limitations": [
+            "Linear or logarithmic growth of operations with distance between positions",
+            "Difficulty in learning dependencies between distant positions",
+            "Inefficient use of computational resources"
+          ]
+        },
+        {
+          "name": "Attention Mechanisms with RNNs",
+          "limitations": [
+            "Sequential computation limits parallelization and increases training time",
+            "Difficulty in learning dependencies between distant positions",
+            "Inefficient use of computational resources"
+          ]
+        }
+      ],
+      "gap_in_research": "Existing approaches rely on sequential computation, which limits parallelization and increases training time. Self-attention mechanisms have shown promise in sequence transduction tasks, but their potential has not been fully explored.",
+      "importance": "Solving this problem is significant to the field because it has the potential to improve the efficiency and effectiveness of sequence transduction models, particularly in machine translation tasks. This could lead to faster and more accurate translation systems, with significant implications for industries and individuals relying on machine translation."
+    },
+    "full_explanation": {
+      "title": "Attention Is All You Need",
+      "authors": "Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin",
+      "approach_summary": "The authors propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely.",
+      "methodology": "The Transformer architecture consists of an encoder and a decoder, both composed of a stack of identical layers. Each layer has two sub-layers: a multi-head self-attention mechanism and a simple, position-wise fully connected feed-forward network. The authors employ residual connections around each of the two sub-layers, followed by layer normalization.",
+      "innovations": [
+        "Proposed a new simple network architecture, the Transformer, based solely on attention mechanisms",
+        "Introduced Scaled Dot-Product Attention and Multi-Head Attention",
+        "Used self-attention in both encoder and decoder, allowing for more parallelization and reducing sequential computation",
+        "Employed residual connections and layer normalization to improve model performance"
+      ],
+      "architecture": "The Transformer architecture consists of an encoder and a decoder, both composed of a stack of identical layers. Each layer has two sub-layers: a multi-head self-attention mechanism and a simple, position-wise fully connected feed-forward network.",
+      "evaluation": {
+        "metrics": [
+          "BLEU score",
+          "Translation quality"
+        ],
+        "datasets": [
+          "WMT 2014 English-to-German translation task",
+          "WMT 2014 English-to-French translation task"
+        ],
+        "baselines": [
+          "Existing best results, including ensembles"
+        ]
+      },
+      "results": "The authors achieved a BLEU score of 28.4 on the WMT 2014 English-to-German translation task, improving over the existing best results by over 2 BLEU. On the WMT 2014 English-to-French translation task, their model established a new single-model state-of-the-art BLEU score of 41.0 after training for 3.5 days on eight GPUs.",
+      "limitations": [
+        "The authors acknowledge that their model requires a large amount of computational resources and training data",
+        "The model's performance may degrade for longer sequence lengths"
+      ],
+      "future_work": [
+        "Investigating the use of the Transformer architecture for other natural language processing tasks",
+        "Exploring the use of different attention mechanisms and layer normalization techniques",
+        "Improving the model's performance on longer sequence lengths"
+      ]
+    },
+    "pseudo_code": {
+      "implementation_overview": "Implementation of the Transformer architecture, a novel sequence transduction model that relies entirely on self-attention mechanisms to draw global dependencies between input and output sequences.",
+      "prerequisites": [
+        "Python 3.x",
+        "NumPy",
+        "TensorFlow 2.x"
+      ],
+      "main_components": [
+        "Encoder",
+        "Decoder",
+        "Multi-Head Attention",
+        "Scaled Dot-Product Attention",
+        "Position-wise Feed-Forward Networks"
+      ],
+      "pseudo_code": [
+        {
+          "component": "Encoder",
+          "description": "The encoder maps an input sequence of symbol representations to a sequence of continuous representations.",
+          "code": null
+        }
+      ]
+    },
+    "knowledge_graph": {
+      "nodes": [],
+      "edges": []
+    },
+    "architecture_deep_dive": {
+      "overview": "Detailed breakdown of the Transformer architecture and methodology.",
+      "detailed_breakdown": [
+        {
+          "component_name": "Encoder and Decoder Stacks",
+          "purpose": "Process input sequences and generate output sequences.",
+          "detailed_explanation": "The encoder and decoder stacks are composed of identical layers, each containing a multi-head self-attention mechanism and a position-wise fully connected feed-forward network. The encoder takes in an input sequence of symbol representations and outputs a sequence of continuous representations. The decoder takes in the output of the encoder and generates an output sequence of symbols one element at a time.",
+          "mathematical_formulation": "$$z = \text{Encoder}(x)$$\n$$y = \text{Decoder}(z)$$",
+          "dimension_analysis": "Input: $x in mathbb{R}^{n \times d}$\nOutput: $z in mathbb{R}^{n \times d}$\nInput: $z in mathbb{R}^{n \times d}$\nOutput: $y in mathbb{R}^{m \times d}$",
+          "design_rationale": "The encoder and decoder stacks are designed to process input sequences and generate output sequences. The use of multi-head self-attention mechanisms allows the model to jointly attend to information from different representation subspaces at different positions. The position-wise fully connected feed-forward networks are used to transform the output of the self-attention mechanisms.",
+          "subtle_details": "The use of residual connections and layer normalization helps to improve the stability and efficiency of the model."
+        },
+        {
+          "component_name": "Multi-Head Self-Attention Mechanism",
+          "purpose": "Compute attention weights and transform the input sequence.",
+          "detailed_explanation": "The multi-head self-attention mechanism takes in a sequence of continuous representations and outputs a transformed sequence. It consists of three linear projections, followed by a softmax function and a linear transformation. The output of the multi-head self-attention mechanism is a weighted sum of the input sequence.",
+          "mathematical_formulation": "$$Q = W_Q x$$\n$$K = W_K x$$\n$$V = W_V x$$\n$$\text{Attention}(Q, K, V) = \text{softmax}left(\frac{QK^T}{sqrt{d}}\right)V$$",
+          "dimension_analysis": "Input: $x in mathbb{R}^{n \times d}$\nOutput: $Q in mathbb{R}^{n \times d}$\nOutput: $K in mathbb{R}^{n \times d}$\nOutput: $V in mathbb{R}^{n \times d}$\nOutput: $\text{Attention}(Q, K, V) in mathbb{R}^{n \times d}$",
+          "design_rationale": "The multi-head self-attention mechanism is designed to compute attention weights and transform the input sequence. The use of multiple linear projections allows the model to jointly attend to information from different representation subspaces at different positions.",
+          "subtle_details": "The use of a softmax function helps to normalize the attention weights and prevent the model from attending to all positions equally."
+        },
+        {
+          "component_name": "Position-Wise Fully Connected Feed-Forward Network",
+          "purpose": "Transform the output of the self-attention mechanism.",
+          "detailed_explanation": "The position-wise fully connected feed-forward network takes in the output of the self-attention mechanism and outputs a transformed sequence. It consists of two linear transformations with a ReLU activation function in between.",
+          "mathematical_formulation": "$$FFN(x) = max(0, xW_1 + b_1)W_2 + b_2$$",
+          "dimension_analysis": "Input: $x in mathbb{R}^{n \times d}$\nOutput: $FFN(x) in mathbb{R}^{n \times d}$",
+          "design_rationale": "The position-wise fully connected feed-forward network is designed to transform the output of the self-attention mechanism. The use of a ReLU activation function helps to introduce non-linearity into the model.",
+          "subtle_details": "The use of different parameters for each layer helps to improve the stability and efficiency of the model."
+        },
+        {
+          "component_name": "Encoder-Decoder Attention",
+          "purpose": "Allow the decoder to attend to all positions in the input sequence.",
+          "detailed_explanation": "The encoder-decoder attention mechanism takes in the output of the encoder and the output of the previous decoder layer, and outputs a transformed sequence. It consists of a multi-head self-attention mechanism and a linear transformation.",
+          "mathematical_formulation": "$$Q = W_Q z$$\n$$K = W_K z$$\n$$V = W_V z$$\n$$\text{Attention}(Q, K, V) = \text{softmax}left(\frac{QK^T}{sqrt{d}}\right)V$$",
+          "dimension_analysis": "Input: $z in mathbb{R}^{n \times d}$\nOutput: $Q in mathbb{R}^{n \times d}$\nOutput: $K in mathbb{R}^{n \times d}$\nOutput: $V in mathbb{R}^{n \times d}$\nOutput: $\text{Attention}(Q, K, V) in mathbb{R}^{n \times d}$",
+          "design_rationale": "The encoder-decoder attention mechanism is designed to allow the decoder to attend to all positions in the input sequence. The use of a multi-head self-attention mechanism helps to jointly attend to information from different representation subspaces at different positions.",
+          "subtle_details": "The use of a linear transformation helps to normalize the attention weights and prevent the model from attending to all positions equally."
+        }
+      ],
+      "integration_flow": "The Transformer architecture consists of an encoder and a decoder, each composed of a stack of identical layers. The encoder takes in an input sequence of symbol representations and outputs a sequence of continuous representations. The decoder takes in the output of the encoder and generates an output sequence of symbols one element at a time. The multi-head self-attention mechanism is used to compute attention weights and transform the input sequence. The position-wise fully connected feed-forward network is used to transform the output of the self-attention mechanism. The encoder-decoder attention mechanism is used to allow the decoder to attend to all positions in the input sequence.",
+      "critical_insights": [
+        "The Transformer architecture is designed to process input sequences and generate output sequences. The use of multi-head self-attention mechanisms allows the model to jointly attend to information from different representation subspaces at different positions.",
+        "The position-wise fully connected feed-forward network is used to transform the output of the self-attention mechanism. The use of a ReLU activation function helps to introduce non-linearity into the model.",
+        "The encoder-decoder attention mechanism is used to allow the decoder to attend to all positions in the input sequence. The use of a multi-head self-attention mechanism helps to jointly attend to information from different representation subspaces at different positions."
+      ],
+      "implementation_considerations": [
+        "The use of residual connections and layer normalization helps to improve the stability and efficiency of the model.",
+        "The use of different parameters for each layer helps to improve the stability and efficiency of the model.",
+        "The use of a softmax function helps to normalize the attention weights and prevent the model from attending to all positions equally."
+      ]
+    },
+    "model_file": "import torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass Transformer(nn.Module):\n    '''\n    The Transformer model architecture.\n\n    Args:\n        num_heads (int): Number of attention heads.\n        num_layers (int): Number of layers in the encoder and decoder.\n        d_model (int): Dimensionality of the model.\n        d_ff (int): Dimensionality of the feed-forward network.\n        input_vocab_size (int): Size of the input vocabulary.\n        output_vocab_size (int): Size of the output vocabulary.\n        max_seq_len (int): Maximum sequence length.\n\n    Shape:\n        - Input: (batch, seq_len)\n        - Output: (batch, seq_len, output_vocab_size)\n    '''\n    def __init__(self, num_heads, num_layers, d_model, d_ff, input_vocab_size, output_vocab_size, max_seq_len):\n        super(Transformer, self).__init__()\n        self.encoder = Encoder(num_layers, d_model, d_ff, num_heads, input_vocab_size, max_seq_len)\n        self.decoder = Decoder(num_layers, d_model, d_ff, num_heads, output_vocab_size, max_seq_len)\n\n    def forward(self, input_seq, output_seq):\n        # [batch, seq_len] -> [batch, seq_len, d_model]\n        # Example: [1, 10] -> [1, 10, 512]\n        encoder_output = self.encoder(input_seq)\n        # [batch, seq_len, d_model] -> [batch, seq_len, output_vocab_size]\n        # Example: [1, 10, 512] -> [1, 10, 10000]\n        output = self.decoder(encoder_output, output_seq)\n        return output\n\nclass Encoder(nn.Module):\n    def __init__(self, num_layers, d_model, d_ff, num_heads, input_vocab_size, max_seq_len):\n        super(Encoder, self).__init__()\n        self.embedding = nn.Embedding(input_vocab_size, d_model)\n        self.positional_encoding = PositionalEncoding(d_model, max_seq_len)\n        self.layers = nn.ModuleList([EncoderLayer(d_model, d_ff, num_heads) for _ in range(num_layers)])\n\n    def forward(self, input_seq):\n        # [batch, seq_len] -> [batch, seq_len, d_model]\n        # Example: [1, 10] -> [1, 10, 512]\n        embedded = self.embedding(input_seq)\n        # [batch, seq_len, d_model] -> [batch, seq_len, d_model]\n        # Example: [1, 10, 512] -> [1, 10, 512]\n        encoded = self.positional_encoding(embedded)\n        for layer in self.layers:\n            # [batch, seq_len, d_model] -> [batch, seq_len, d_model]\n            # Example: [1, 10, 512] -> [1, 10, 512]\n            encoded = layer(encoded)\n        return encoded\n\nclass Decoder(nn.Module):\n    def __init__(self, num_layers, d_model, d_ff, num_heads, output_vocab_size, max_seq_len):\n        super(Decoder, self).__init__()\n        self.embedding = nn.Embedding(output_vocab_size, d_model)\n        self.positional_encoding = PositionalEncoding(d_model, max_seq_len)\n        self.layers = nn.ModuleList([DecoderLayer(d_model, d_ff, num_heads) for _ in range(num_layers)])\n        self.output_linear = nn.Linear(d_model, output_vocab_size)\n\n    def forward(self, encoder_output, output_seq):\n        # [batch, seq_len] -> [batch, seq_len, d_model]\n        # Example: [1, 10] -> [1, 10, 512]\n        embedded = self.embedding(output_seq)\n        # [batch, seq_len, d_model] -> [batch, seq_len, d_model]\n        # Example: [1, 10, 512] -> [1, 10, 512]\n        encoded = self.positional_encoding(embedded)\n        for layer in self.layers:\n            # [batch, seq_len, d_model] -> [batch, seq_len, d_model]\n            # Example: [1, 10, 512] -> [1, 10, 512]\n            encoded = layer(encoded, encoder_output)\n        # [batch, seq_len, d_model] -> [batch, seq_len, output_vocab_size]\n        # Example: [1, 10, 512] -> [1, 10, 10000]\n        output = self.output_linear(encoded)\n        return output\n\nclass EncoderLayer(nn.Module):\n    def __init__(self, d_model, d_ff, num_heads):\n        super(EncoderLayer, self).__init__()\n        self.self_attention = MultiHeadAttention(d_model, num_heads)\n        self.feed_forward = nn.Linear(d_model, d_ff)\n        self.output_linear = nn.Linear(d_ff, d_model)\n\n    def forward(self, input_seq):\n        # [batch, seq_len, d_model] -> [batch, seq_len, d_model]\n        # Example: [1, 10, 512] -> [1, 10, 512]\n        attention_output = self.self_attention(input_seq)\n        # [batch, seq_len, d_model] -> [batch, seq_len, d_ff]\n        # Example: [1, 10, 512] -> [1, 10, 2048]\n        feed_forward_output = F.relu(self.feed_forward(attention_output))\n        # [batch, seq_len, d_ff] -> [batch, seq_len, d_model]\n        # Example: [1, 10, 2048] -> [1, 10, 512]\n        output = self.output_linear(feed_forward_output)\n        return output\n\nclass DecoderLayer(nn.Module):\n    def __init__(self, d_model, d_ff, num_heads):\n        super(DecoderLayer, self).__init__()\n        self.self_attention = MultiHeadAttention(d_model, num_heads)\n        self.encoder_attention = MultiHeadAttention(d_model, num_heads)\n        self.feed_forward = nn.Linear(d_model, d_ff)\n        self.output_linear = nn.Linear(d_ff, d_model)\n\n    def forward(self, input_seq, encoder_output):\n        # [batch, seq_len, d_model] -> [batch, seq_len, d_model]\n        # Example: [1, 10, 512] -> [1, 10, 512]\n        self_attention_output = self.self_attention(input_seq)\n        # [batch, seq_len, d_model] -> [batch, seq_len, d_model]\n        # Example: [1, 10, 512] -> [1, 10, 512]\n        encoder_attention_output = self.encoder_attention(self_attention_output, encoder_output)\n        # [batch, seq_len, d_model] -> [batch, seq_len, d_ff]\n        # Example: [1, 10, 512] -> [1, 10, 2048]\n        feed_forward_output = F.relu(self.feed_forward(encoder_attention_output))\n        # [batch, seq_len, d_ff] -> [batch, seq_len, d_model]\n        # Example: [1, 10, 2048] -> [1, 10, 512]\n        output = self.output_linear(feed_forward_output)\n        return output\n\nclass MultiHeadAttention(nn.Module):\n    def __init__(self, d_model, num_heads):\n        super(MultiHeadAttention, self).__init__()\n        self.query_linear = nn.Linear(d_model, d_model)\n        self.key_linear = nn.Linear(d_model, d_model)\n        self.value_linear = nn.Linear(d_model, d_model)\n        self.num_heads = num_heads\n\n    def forward(self, input_seq, encoder_output=None):\n        # [batch, seq_len, d_model] -> [batch, seq_len, d_model]\n        # Example: [1, 10, 512] -> [1, 10, 512]\n        query = self.query_linear(input_seq)\n        if encoder_output is not None:\n            # [batch, seq_len, d_model] -> [batch, seq_len, d_model]\n            # Example: [1, 10, 512] -> [1, 10, 512]\n            key = self.key_linear(encoder_output)\n            # [batch, seq_len, d_model] -> [batch, seq_len, d_model]\n            # Example: [1, 10, 512] -> [1, 10, 512]\n            value = self.value_linear(encoder_output)\n        else:\n            # [batch, seq_len, d_model] -> [batch, seq_len, d_model]\n            # Example: [1, 10, 512] -> [1, 10, 512]\n            key = self.key_linear(input_seq)\n            # [batch, seq_len, d_model] -> [batch, seq_len, d_model]\n            # Example: [1, 10, 512] -> [1, 10, 512]\n            value = self.value_linear(input_seq)\n        # [batch, seq_len, d_model] -> [batch, num_heads, seq_len, d_model/num_heads]\n        # Example: [1, 10, 512] -> [1, 8, 10, 64]\n        query = query.view(-1, input_seq.size(1), self.num_heads, -1).transpose(1, 2)\n        # [batch, seq_len, d_model] -> [batch, num_heads, seq_len, d_model/num_heads]\n        # Example: [1, 10, 512] -> [1, 8, 10, 64]\n        key = key.view(-1, input_seq.size(1), self.num_heads, -1).transpose(1, 2)\n        # [batch, seq_len, d_model] -> [batch, num_heads, seq_len, d_model/num_heads]\n        # Example: [1, 10, 512] -> [1, 8, 10, 64]\n        value = value.view(-1, input_seq.size(1), self.num_heads, -1).transpose(1, 2)\n        # [batch, num_heads, seq_len, d_model/num_heads] -> [batch, num_heads, seq_len, d_model/num_heads]\n        # Example: [1, 8, 10, 64] -> [1, 8, 10, 64]\n        attention_weights = F.softmax(torch.matmul(query, key.transpose(-1, -2)) / math.sqrt(query.size(-1)), dim=-1)\n        # [batch, num_heads, seq_len, d_model/num_heads] -> [batch, seq_len, d_model]\n        # Example: [1, 8, 10, 64] -> [1, 10, 512]\n        output = torch.matmul(attention_weights, value).transpose(1, 2).contiguous().view(-1, input_seq.size(1), self.num_heads * -1)\n        return output\n\nclass PositionalEncoding(nn.Module):\n    def __init__(self, d_model, max_seq_len):\n        super(PositionalEncoding, self).__init__()\n        self.encoding = torch.zeros(max_seq_len, d_model)\n        for pos in range(max_seq_len):\n            for i in range(0, d_model, 2):\n                self.encoding[pos, i] = math.sin(pos / (10000 ** ((2 * i)/d_model)))\n                if i + 1 < d_model:\n                    self.encoding[pos, i + 1] = math.cos(pos / (10000 ** ((2 * (i + 1))/d_model)))\n\n    def forward(self, input_seq):\n        # [batch, seq_len, d_model] -> [batch, seq_len, d_model]\n        # Example: [1, 10, 512] -> [1, 10, 512]\n        return input_seq + self.encoding[:input_seq.size(1), :].to(input_seq.device)\n\nif __name__ == \"__main__\":\n    import math\n    model = Transformer(num_heads=8, num_layers=6, d_model=512, d_ff=2048, input_vocab_size=10000, output_vocab_size=10000, max_seq_len=100)\n    input_seq = torch.randint(0, 10000, (1, 10))\n    output_seq = torch.randint(0, 10000, (1, 10))\n    output = model(input_seq, output_seq)\n    print(output.shape)"
+  }
+}

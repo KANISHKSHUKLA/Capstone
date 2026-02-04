@@ -189,7 +189,7 @@ Format your response as a JSON object with the following structure:
         return [
             {"role": "system", "content": """You are an expert AI and machine learning engineer specializing in implementing research papers.
 Your task is to generate clear, well-structured pseudo-code that implements the core algorithms and methods described in a research paper.
-Provide your response in JSON format."""},
+CRITICAL: You MUST respond with valid JSON only. Escape all special characters (use \\n for newlines, \\" for quotes). No control characters allowed."""},
             {"role": "user", "content": f"""Based on the following research paper, generate well-structured pseudo-code that implements the core algorithms, methods, or architecture described in the paper.
 Focus on the most important and novel aspects of the paper implementation.
 Provide code that is clear, commented, and follows best practices.
@@ -242,6 +242,8 @@ Format your response as a JSON object with the following structure:
             {"role": "system", "content": """You are an exceptionally detail-oriented academic researcher and AI architect with deep expertise in dissecting complex technical systems.
 
 Your task is to provide an EXTREMELY DETAILED, bone-deep analysis of the paper's architecture and methodology. Go far beyond surface-level descriptions.
+
+CRITICAL: You MUST respond with valid JSON only. Escape all special characters properly (use \\n for newlines, \\" for quotes). No control characters allowed in string values.
 
 For every component, explain:
 - The exact mathematical formulations and operations

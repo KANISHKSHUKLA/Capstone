@@ -2,12 +2,14 @@ import asyncio
 import logging
 import os
 import tempfile
+import time
 from typing import Dict, List, Any, Optional
 
-from app.clients.gemini_ai import GeminiClient
+from app.clients.groq_ai import GroqAIClient
 from app.prompts.templates import PromptTemplates
 from app.utils.pdf_processor import PDFProcessor
 from app.core.knowledge_graph import KnowledgeGraphExtractor
+from app.config import get_settings
 
 class PaperAnalyzer:
     """
@@ -15,9 +17,11 @@ class PaperAnalyzer:
     """
     
     def __init__(self):
-        self.llm_client = GeminiClient()
+        self.llm_client = GroqAIClient()  # Using Groq instead of Gemini for better rate limits
         self.prompt_templates = PromptTemplates()
         self.graph_extractor = KnowledgeGraphExtractor(self.llm_client)
+        self.settings = get_settings()
+        self.api_delay = self.settings.API_CALL_DELAY
     
     async def save_upload_file(self, file_content: bytes) -> str:
         """
@@ -67,12 +71,19 @@ class PaperAnalyzer:
             if isinstance(results[0], Dict) and results[0]:
                 shared_context["key_concepts"] = results[0]
             
+            # Add delay to avoid rate limits (configurable, default 10 seconds)
+            logging.info(f"Waiting {self.api_delay}s before next API call to avoid rate limits...")
+            await asyncio.sleep(self.api_delay)
+            
             # Second call - identify problem statement
             problem_task = self._analyze_problem_statement(paper_text, shared_context)
             problem_result = await problem_task
             
             if isinstance(problem_result, Dict) and problem_result:
                 shared_context["problem_statement"] = problem_result
+            
+            logging.info(f"Waiting {self.api_delay}s before next API call...")
+            await asyncio.sleep(self.api_delay)
             
             # Third call - full explanation
             explanation_task = self._analyze_full_explanation(paper_text, shared_context)
@@ -81,18 +92,32 @@ class PaperAnalyzer:
             if isinstance(explanation_result, Dict) and explanation_result:
                 shared_context["full_explanation"] = explanation_result
             
+            logging.info(f"Waiting {self.api_delay}s before next API call...")
+            await asyncio.sleep(self.api_delay)
+            
             # Fourth call - generate pseudo code
             pseudocode_task = self._generate_pseudo_code(paper_text, shared_context)
             pseudocode_result = await pseudocode_task
             
-            # Fifth call - extract knowledge graph (disabled)
-            # knowledge_graph_task = self._extract_knowledge_graph(paper_text, shared_context)
-            # knowledge_graph_result = await knowledge_graph_task
-            knowledge_graph_result = {"nodes": [], "edges": []}
+            if isinstance(pseudocode_result, Dict) and pseudocode_result:
+                shared_context["pseudo_code"] = pseudocode_result
+            
+            logging.info(f"Waiting {self.api_delay}s before next API call...")
+            await asyncio.sleep(self.api_delay)
+            
+            # Fifth call - extract knowledge graph
+            knowledge_graph_task = self._extract_knowledge_graph(paper_text, shared_context)
+            knowledge_graph_result = await knowledge_graph_task
             
             # Sixth call - in-depth architecture analysis
             architecture_deep_dive_task = self._analyze_architecture_deep_dive(paper_text, shared_context)
             architecture_deep_dive_result = await architecture_deep_dive_task
+            
+            if isinstance(architecture_deep_dive_result, Dict) and architecture_deep_dive_result:
+                shared_context["architecture_deep_dive"] = architecture_deep_dive_result
+            
+            logging.info(f"Waiting {self.api_delay}s before next API call...")
+            await asyncio.sleep(self.api_delay)
             
             # Seventh call - generate concrete model.py file code
             model_file_task = self._generate_model_file(paper_text, shared_context)
@@ -134,8 +159,16 @@ class PaperAnalyzer:
         Returns:
             Dictionary containing key concepts analysis
         """
-        messages = PromptTemplates.key_concepts_prompt(paper_text)
-        return await self.llm_client.call_llm(messages)
+        try:
+            messages = PromptTemplates.key_concepts_prompt(paper_text)
+            result = await self.llm_client.call_llm(messages)
+            if result.get("error"):
+                logging.warning(f"Key concepts analysis failed: {result.get('error')}")
+                return {}
+            return result
+        except Exception as e:
+            logging.error(f"Error in key concepts analysis: {str(e)}")
+            return {}
     
     async def _analyze_problem_statement(self, paper_text: str, shared_context: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -148,8 +181,16 @@ class PaperAnalyzer:
         Returns:
             Dictionary containing problem statement analysis
         """
-        messages = PromptTemplates.problem_statement_prompt(paper_text, shared_context)
-        return await self.llm_client.call_llm(messages)
+        try:
+            messages = PromptTemplates.problem_statement_prompt(paper_text, shared_context)
+            result = await self.llm_client.call_llm(messages)
+            if result.get("error"):
+                logging.warning(f"Problem statement analysis failed: {result.get('error')}")
+                return {}
+            return result
+        except Exception as e:
+            logging.error(f"Error in problem statement analysis: {str(e)}")
+            return {}
     
     async def _analyze_full_explanation(self, paper_text: str, shared_context: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -162,8 +203,16 @@ class PaperAnalyzer:
         Returns:
             Dictionary containing full explanation
         """
-        messages = PromptTemplates.full_explanation_prompt(paper_text, shared_context)
-        return await self.llm_client.call_llm(messages)
+        try:
+            messages = PromptTemplates.full_explanation_prompt(paper_text, shared_context)
+            result = await self.llm_client.call_llm(messages)
+            if result.get("error"):
+                logging.warning(f"Full explanation analysis failed: {result.get('error')}")
+                return {}
+            return result
+        except Exception as e:
+            logging.error(f"Error in full explanation analysis: {str(e)}")
+            return {}
     
     async def _generate_pseudo_code(self, paper_text: str, shared_context: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -176,8 +225,16 @@ class PaperAnalyzer:
         Returns:
             Dictionary containing pseudo-code implementation
         """
-        messages = PromptTemplates.pseudo_code_prompt(paper_text, shared_context)
-        return await self.llm_client.call_llm(messages)
+        try:
+            messages = PromptTemplates.pseudo_code_prompt(paper_text, shared_context)
+            result = await self.llm_client.call_llm(messages)
+            if result.get("error"):
+                logging.warning(f"Pseudo code generation failed: {result.get('error')}")
+                return {}
+            return result
+        except Exception as e:
+            logging.error(f"Error in pseudo code generation: {str(e)}")
+            return {}
         
     async def _extract_knowledge_graph(self, paper_text: str, shared_context: Dict[str, Any]) -> Dict[str, Any]:
         """

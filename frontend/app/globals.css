@@ -2,12 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 15, 23, 42;
-  --background-rgb: 248, 250, 252;
+@layer base {
+  :root {
+    --fg: 15 23 42;
+    --bg: 248 250 252;
+  }
+
+  html,
+  body {
+    height: 100%;
+  }
+
+  body {
+    color: rgb(var(--fg));
+    background: rgb(var(--bg));
+    @apply antialiased;
+  }
+
+  ::selection {
+    background: theme(colors.primary.200);
+  }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-rgb));
+@layer components {
+  .app-surface {
+    @apply bg-white/80 backdrop-blur border border-white/50 shadow-sm;
+  }
+
+  .app-card {
+    @apply bg-white/90 backdrop-blur border border-neutral-200/70 shadow-sm;
+  }
+
+  .app-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:ring-offset-2 focus:ring-offset-neutral-50;
+  }
+}
+
+@layer utilities {
+  .bg-app {
+    background-image:
+      radial-gradient(1200px 600px at 15% -10%, rgba(14, 165, 233, 0.20), transparent 60%),
+      radial-gradient(900px 450px at 85% 0%, rgba(2, 132, 199, 0.16), transparent 55%),
+      radial-gradient(900px 450px at 40% 110%, rgba(99, 102, 241, 0.12), transparent 55%);
+  }
+
+  .shadow-soft {
+    box-shadow:
+      0 1px 2px rgba(2, 6, 23, 0.06),
+      0 10px 30px rgba(2, 6, 23, 0.08);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
 }

@@ -13,8 +13,8 @@ class Settings:
         try:
             # Gemini API Configuration
             self.GEMINI_API_KEY: str = os.environ.get("GEMINI_API_KEY", "")
-            self.GEMINI_MODEL: str = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
-            self.GEMINI_FALLBACK_MODEL: str = os.environ.get("GEMINI_FALLBACK_MODEL", "gemini-2.5-flash")
+            self.GEMINI_MODEL: str = os.environ.get("GEMINI_MODEL", "gemini-3-flash-preview")
+            self.GEMINI_FALLBACK_MODEL: str = os.environ.get("GEMINI_FALLBACK_MODEL", "gemini-3-flash-preview")
             
             # Model Configuration
             self.MAX_TOKENS: int = int(os.environ.get("MAX_TOKENS", "50000"))
@@ -24,6 +24,10 @@ class Settings:
             # Feature Flags
             self.USE_GROUNDING: bool = os.environ.get("USE_GROUNDING", "true").lower() == "true"
             self.USE_THINKING: bool = os.environ.get("USE_THINKING", "true").lower() == "true"
+            
+            # Rate Limiting (Groq free tier: ~30 requests/minute, so 3 seconds is safe)
+            # Reduced from 10s since Groq has better limits than Gemini
+            self.API_CALL_DELAY: float = float(os.environ.get("API_CALL_DELAY", "3.0"))
             
             # Warn if API key is not set, but allow initialization
             if not self.GEMINI_API_KEY:

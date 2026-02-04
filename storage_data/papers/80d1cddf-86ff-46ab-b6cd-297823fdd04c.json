@@ -1,0 +1,493 @@
+{
+  "job_id": "80d1cddf-86ff-46ab-b6cd-297823fdd04c",
+  "created_at": "2026-02-05T00:57:55.842185",
+  "status": "completed",
+  "filename": "NIPS-2017-attention-is-all-you-need-Paper (1).pdf",
+  "result": {
+    "metadata": {
+      "title": "Attention is All you Need",
+      "authors": "Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin"
+    },
+    "key_concepts": {
+      "key_concepts": [
+        {
+          "name": "Transformer",
+          "category": "algorithm",
+          "explanation": "A new simple network architecture based solely on attention mechanisms, dispensing with recurrence and convolutions entirely.",
+          "relevance": "The Transformer is the main contribution of the paper and is used to achieve state-of-the-art results in machine translation tasks."
+        },
+        {
+          "name": "Self-Attention",
+          "category": "algorithm",
+          "explanation": "An attention mechanism relating different positions of a single sequence to compute a representation of the sequence.",
+          "relevance": "Self-Attention is used in the Transformer to draw global dependencies between input and output sequences."
+        },
+        {
+          "name": "Multi-Head Attention",
+          "category": "algorithm",
+          "explanation": "A variant of self-attention that linearly projects the queries, keys, and values multiple times with different learned linear projections.",
+          "relevance": "Multi-Head Attention is used in the Transformer to jointly attend to information from different representation subspaces at different positions."
+        },
+        {
+          "name": "Scaled Dot-Product Attention",
+          "category": "algorithm",
+          "explanation": "A particular attention mechanism that computes the dot products of the query with all keys, divides each by √dk, and applies a softmax function to obtain the weights on the values.",
+          "relevance": "Scaled Dot-Product Attention is used in the Transformer to compute the attention weights."
+        },
+        {
+          "name": "Positional Encoding",
+          "category": "algorithm",
+          "explanation": "A technique used to inject information about the relative or absolute position of the tokens in the sequence into the model.",
+          "relevance": "Positional Encoding is used in the Transformer to make use of the order of the sequence."
+        },
+        {
+          "name": "Residual Connection",
+          "category": "algorithm",
+          "explanation": "A technique used to facilitate the training of deep neural networks by adding the input of a layer to its output.",
+          "relevance": "Residual Connection is used in the Transformer to facilitate the training of the model."
+        },
+        {
+          "name": "Layer Normalization",
+          "category": "algorithm",
+          "explanation": "A technique used to normalize the activations of a layer by subtracting the mean and dividing by the standard deviation.",
+          "relevance": "Layer Normalization is used in the Transformer to normalize the activations of the layers."
+        }
+      ],
+      "core_technologies": [
+        "Deep Learning",
+        "Attention Mechanisms",
+        "Transformers",
+        "Self-Attention",
+        "Multi-Head Attention",
+        "Scaled Dot-Product Attention",
+        "Positional Encoding",
+        "Residual Connection",
+        "Layer Normalization"
+      ],
+      "novelty_aspects": [
+        "The Transformer architecture",
+        "Multi-Head Attention",
+        "Scaled Dot-Product Attention",
+        "Positional Encoding"
+      ],
+      "field_of_study": "Natural Language Processing",
+      "interdisciplinary_connections": [
+        "Computer Science",
+        "Machine Learning",
+        "Deep Learning"
+      ]
+    },
+    "problem_statement": {
+      "problem": "Improving the efficiency and effectiveness of sequence transduction models, particularly in machine translation tasks, by reducing sequential computation and leveraging attention mechanisms.",
+      "research_questions": [
+        "Can a sequence transduction model be designed that relies entirely on attention mechanisms, dispensing with recurrence and convolutions?",
+        "How can the efficiency and effectiveness of sequence transduction models be improved through the use of attention mechanisms and parallelization?",
+        "Can a model architecture be developed that achieves state-of-the-art results in machine translation tasks while requiring significantly less time to train?"
+      ],
+      "existing_approaches": [
+        {
+          "name": "Recurrent Neural Networks (RNNs)",
+          "limitations": [
+            "Sequential computation limits parallelization within training examples, becoming critical at longer sequence lengths.",
+            "RNNs are computationally expensive and require significant memory constraints."
+          ]
+        },
+        {
+          "name": "Convolutional Neural Networks (CNNs)",
+          "limitations": [
+            "The number of operations required to relate signals from two arbitrary input or output positions grows linearly or logarithmically with distance, making it difficult to learn dependencies between distant positions."
+          ]
+        },
+        {
+          "name": "Encoder-Decoder Architectures",
+          "limitations": [
+            "Sequential computation limits parallelization within training examples, becoming critical at longer sequence lengths.",
+            "Encoder-decoder attention mechanisms are typically used in conjunction with RNNs or CNNs."
+          ]
+        }
+      ],
+      "gap_in_research": "Existing approaches rely on sequential computation, which limits parallelization and requires significant computational resources. The Transformer model addresses this gap by leveraging attention mechanisms and parallelization to improve efficiency and effectiveness.",
+      "importance": "Solving this problem is significant to the field because it has the potential to improve the efficiency and effectiveness of sequence transduction models, particularly in machine translation tasks, which is a critical application in natural language processing."
+    },
+    "full_explanation": {
+      "title": "Attention Is All You Need",
+      "authors": [
+        "Ashish Vaswani",
+        "Noam Shazeer",
+        "Niki Parmar",
+        "Jakob Uszkoreit",
+        "Llion Jones",
+        "Aidan N. Gomez",
+        "Łukasz Kaiser",
+        "Illia Polosukhin"
+      ],
+      "approach_summary": "The authors propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely.",
+      "methodology": "The Transformer architecture consists of an encoder and a decoder, both composed of a stack of identical layers. Each layer has two sub-layers: a multi-head self-attention mechanism and a simple, position-wise fully connected feed-forward network. The authors employ residual connections around each of the two sub-layers, followed by layer normalization.",
+      "innovations": [
+        "The Transformer architecture, which relies entirely on attention mechanisms to compute representations of its input and output without using sequence-aligned RNNs or convolution.",
+        "Multi-head attention, which allows the model to jointly attend to information from different representation subspaces at different positions.",
+        "Scaled dot-product attention, which is a particular attention mechanism used in the Transformer.",
+        "Positional encoding, which is used to inject information about the relative or absolute position of the tokens in the sequence."
+      ],
+      "architecture": "The Transformer architecture consists of an encoder and a decoder, both composed of a stack of identical layers. Each layer has two sub-layers: a multi-head self-attention mechanism and a simple, position-wise fully connected feed-forward network.",
+      "evaluation": {
+        "metrics": [
+          "BLEU score",
+          "Training time"
+        ],
+        "datasets": [
+          "WMT 2014 English-to-German translation task",
+          "WMT 2014 English-to-French translation task"
+        ],
+        "baselines": [
+          "Existing best results, including ensembles"
+        ]
+      },
+      "results": "The Transformer achieves a BLEU score of 28.4 on the WMT 2014 English-to-German translation task, improving over the existing best results by over 2 BLEU. On the WMT 2014 English-to-French translation task, the Transformer establishes a new single-model state-of-the-art BLEU score of 41.0 after training for 3.5 days on eight GPUs.",
+      "limitations": [
+        "The authors acknowledge that the Transformer requires a large amount of computational resources and training data.",
+        "The authors also acknowledge that the Transformer may not be suitable for all types of sequence transduction tasks."
+      ],
+      "future_work": [
+        "Investigating the use of the Transformer architecture for other types of sequence transduction tasks.",
+        "Exploring the use of different attention mechanisms and positional encoding schemes.",
+        "Investigating the use of the Transformer architecture for other applications, such as language modeling and text classification."
+      ]
+    },
+    "pseudo_code": {
+      "implementation_overview": "Implementation of the Transformer architecture as described in the paper 'Attention Is All You Need'.",
+      "prerequisites": [
+        "Python 3.x",
+        "NumPy",
+        "TensorFlow 2.x"
+      ],
+      "main_components": [
+        "Encoder",
+        "Decoder",
+        "Multi-Head Attention",
+        "Scaled Dot-Product Attention",
+        "Position-wise Feed-Forward Networks",
+        "Embeddings and Softmax",
+        "Positional Encoding"
+      ],
+      "pseudo_code": [
+        {
+          "component": "Encoder",
+          "description": "The encoder maps an input sequence of symbol representations to a sequence of continuous representations.",
+          "code": null
+        }
+      ]
+    },
+    "knowledge_graph": {
+      "nodes": [
+        {
+          "id": "node_1",
+          "label": "Sequence Transduction",
+          "type": "concept",
+          "description": "Process of converting input sequences to output sequences"
+        },
+        {
+          "id": "node_2",
+          "label": "Recurrent Neural Networks",
+          "type": "concept",
+          "description": "Neural networks that use recurrence to process sequential data"
+        },
+        {
+          "id": "node_3",
+          "label": "Attention Mechanisms",
+          "type": "concept",
+          "description": "Mechanisms that allow models to focus on specific parts of the input sequence"
+        },
+        {
+          "id": "node_4",
+          "label": "Transformer Architecture",
+          "type": "concept",
+          "description": "Model architecture that uses attention mechanisms to process sequential data"
+        },
+        {
+          "id": "node_5",
+          "label": "Encoder-Decoder Architecture",
+          "type": "concept",
+          "description": "Model architecture that uses an encoder and a decoder to process sequential data"
+        },
+        {
+          "id": "node_6",
+          "label": "Self-Attention",
+          "type": "method",
+          "description": "Attention mechanism that allows models to attend to all positions in the input sequence simultaneously"
+        },
+        {
+          "id": "node_7",
+          "label": "Multi-Head Attention",
+          "type": "method",
+          "description": "Attention mechanism that uses multiple attention heads to process different aspects of the input sequence"
+        },
+        {
+          "id": "node_8",
+          "label": "Scaled Dot-Product Attention",
+          "type": "method",
+          "description": "Attention mechanism that uses dot products to compute attention weights"
+        },
+        {
+          "id": "node_9",
+          "label": "Positional Encoding",
+          "type": "method",
+          "description": "Technique that adds positional information to the input sequence"
+        },
+        {
+          "id": "node_10",
+          "label": "Residual Connection",
+          "type": "method",
+          "description": "Technique that adds the input to the output of a layer to help with training"
+        },
+        {
+          "id": "node_11",
+          "label": "Layer Normalization",
+          "type": "method",
+          "description": "Technique that normalizes the input to a layer"
+        },
+        {
+          "id": "node_12",
+          "label": "WMT 2014 English-to-German",
+          "type": "dataset",
+          "description": "Machine translation task dataset"
+        },
+        {
+          "id": "node_13",
+          "label": "WMT 2014 English-to-French",
+          "type": "dataset",
+          "description": "Machine translation task dataset"
+        },
+        {
+          "id": "node_14",
+          "label": "BLEU Score",
+          "type": "result",
+          "description": "Metric used to evaluate machine translation quality"
+        },
+        {
+          "id": "node_15",
+          "label": "28.4 BLEU",
+          "type": "result",
+          "description": "Result of the Transformer model on the WMT 2014 English-to-German task"
+        },
+        {
+          "id": "node_16",
+          "label": "41.0 BLEU",
+          "type": "result",
+          "description": "Result of the Transformer model on the WMT 2014 English-to-French task"
+        },
+        {
+          "id": "node_17",
+          "label": "Ashish Vaswani",
+          "type": "entity",
+          "description": "Author of the Transformer paper"
+        },
+        {
+          "id": "node_18",
+          "label": "Noam Shazeer",
+          "type": "entity",
+          "description": "Author of the Transformer paper"
+        },
+        {
+          "id": "node_19",
+          "label": "Limitations of Recurrent Models",
+          "type": "limitation",
+          "description": "Sequential computation limits parallelization and increases training time"
+        },
+        {
+          "id": "node_20",
+          "label": "Future Directions",
+          "type": "application",
+          "description": "Applying the Transformer architecture to other NLP tasks"
+        }
+      ],
+      "edges": [
+        {
+          "source": "node_1",
+          "target": "node_2",
+          "label": "uses",
+          "description": "Recurrent neural networks are used for sequence transduction"
+        },
+        {
+          "source": "node_2",
+          "target": "node_3",
+          "label": "uses",
+          "description": "Attention mechanisms are used in recurrent neural networks"
+        },
+        {
+          "source": "node_3",
+          "target": "node_4",
+          "label": "uses",
+          "description": "The Transformer architecture uses attention mechanisms"
+        },
+        {
+          "source": "node_4",
+          "target": "node_5",
+          "label": "compared_with",
+          "description": "The Transformer architecture is compared to encoder-decoder architectures"
+        },
+        {
+          "source": "node_5",
+          "target": "node_4",
+          "label": "compared_with",
+          "description": "Encoder-decoder architectures are compared to the Transformer architecture"
+        },
+        {
+          "source": "node_4",
+          "target": "node_6",
+          "label": "uses",
+          "description": "The Transformer architecture uses self-attention"
+        },
+        {
+          "source": "node_6",
+          "target": "node_7",
+          "label": "uses",
+          "description": "Self-attention uses multi-head attention"
+        },
+        {
+          "source": "node_7",
+          "target": "node_8",
+          "label": "uses",
+          "description": "Multi-head attention uses scaled dot-product attention"
+        },
+        {
+          "source": "node_8",
+          "target": "node_9",
+          "label": "uses",
+          "description": "Scaled dot-product attention uses positional encoding"
+        },
+        {
+          "source": "node_9",
+          "target": "node_10",
+          "label": "uses",
+          "description": "Positional encoding uses residual connections"
+        },
+        {
+          "source": "node_10",
+          "target": "node_11",
+          "label": "uses",
+          "description": "Residual connections use layer normalization"
+        },
+        {
+          "source": "node_4",
+          "target": "node_12",
+          "label": "applied_to",
+          "description": "The Transformer architecture is applied to the WMT 2014 English-to-German task"
+        },
+        {
+          "source": "node_4",
+          "target": "node_13",
+          "label": "applied_to",
+          "description": "The Transformer architecture is applied to the WMT 2014 English-to-French task"
+        },
+        {
+          "source": "node_4",
+          "target": "node_14",
+          "label": "evaluated_on",
+          "description": "The Transformer architecture is evaluated using BLEU score"
+        },
+        {
+          "source": "node_4",
+          "target": "node_15",
+          "label": "results_in",
+          "description": "The Transformer architecture achieves 28.4 BLEU on the WMT 2014 English-to-German task"
+        },
+        {
+          "source": "node_4",
+          "target": "node_16",
+          "label": "results_in",
+          "description": "The Transformer architecture achieves 41.0 BLEU on the WMT 2014 English-to-French task"
+        },
+        {
+          "source": "node_17",
+          "target": "node_18",
+          "label": "collaborated_with",
+          "description": "Ashish Vaswani collaborated with Noam Shazeer on the Transformer paper"
+        },
+        {
+          "source": "node_19",
+          "target": "node_4",
+          "label": "addresses",
+          "description": "The Transformer architecture addresses the limitations of recurrent models"
+        },
+        {
+          "source": "node_20",
+          "target": "node_4",
+          "label": "leads_to",
+          "description": "The Transformer architecture leads to future directions in NLP"
+        }
+      ],
+      "metadata": {
+        "paper_title": "Attention Is All You Need",
+        "node_count": 20,
+        "edge_count": 19
+      }
+    },
+    "architecture_deep_dive": {
+      "overview": "A detailed breakdown of the Transformer architecture, covering its components, mathematical formulations, dimensions, operations, design rationale, and subtle details.",
+      "detailed_breakdown": [
+        {
+          "component_name": "Encoder and Decoder Stacks",
+          "purpose": "To process input sequences and generate output sequences, respectively.",
+          "detailed_explanation": "The Transformer architecture consists of an encoder and a decoder, both composed of a stack of identical layers. Each layer has two sub-layers: a multi-head self-attention mechanism and a simple, position-wise fully connected feed-forward network. The encoder maps an input sequence of symbol representations to a sequence of continuous representations, while the decoder generates an output sequence of symbols one element at a time.",
+          "mathematical_formulation": "$$z = \text{Encoder}(x)$$\n$$y = \text{Decoder}(z)$$",
+          "dimension_analysis": "Input sequence: $n$ tokens, each represented as a $d_{\text{model}}$-dimensional vector.\nEncoder output: $n$ tokens, each represented as a $d_{\text{model}}$-dimensional vector.\nDecoder input: $n$ tokens, each represented as a $d_{\text{model}}$-dimensional vector.\nDecoder output: $m$ tokens, each represented as a $d_{\text{model}}$-dimensional vector.",
+          "design_rationale": "The encoder-decoder structure allows for parallelization and efficient processing of input sequences. The use of self-attention mechanisms enables the model to capture long-range dependencies and contextual information.",
+          "subtle_details": "Residual connections and layer normalization are used to stabilize training and improve model performance."
+        },
+        {
+          "component_name": "Multi-Head Attention",
+          "purpose": "To jointly attend to information from different representation subspaces at different positions.",
+          "detailed_explanation": "Multi-head attention involves linearly projecting the queries, keys, and values $h$ times with different, learned linear projections to $d_k$, $d_k$, and $d_v$ dimensions, respectively. The attention function is then applied to each projected version of the queries, keys, and values in parallel, yielding $d_v$-dimensional output values. These output values are then concatenated and projected again to obtain the final output.",
+          "mathematical_formulation": "$$Q = \text{Linear}(Q)$$\n$$K = \text{Linear}(K)$$\n$$V = \text{Linear}(V)$$\n$$\text{head}_i = \text{Attention}(QW_{Q,i}, KW_{K,i}, VW_{V,i})$$\n$$\text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}_1, ldots, \text{head}_h)W_O$$",
+          "dimension_analysis": "Input queries, keys, and values: $n$ tokens, each represented as a $d_{\text{model}}$-dimensional vector.\nProjected queries, keys, and values: $n$ tokens, each represented as a $d_k$-dimensional vector.\nOutput values: $n$ tokens, each represented as a $d_v$-dimensional vector.\nFinal output: $n$ tokens, each represented as a $d_{\text{model}}$-dimensional vector.",
+          "design_rationale": "Multi-head attention allows the model to capture different types of information and relationships between tokens.",
+          "subtle_details": "The use of different linear projections for each head enables the model to capture different aspects of the input data."
+        },
+        {
+          "component_name": "Scaled Dot-Product Attention",
+          "purpose": "To compute the attention weights between tokens.",
+          "detailed_explanation": "Scaled dot-product attention involves computing the dot products of the query with all keys, dividing each by $sqrt{d_k}$, and applying a softmax function to obtain the attention weights.",
+          "mathematical_formulation": "$$A = \text{softmax}left(\frac{QK^T}{sqrt{d_k}}\right)V$$",
+          "dimension_analysis": "Input queries and keys: $n$ tokens, each represented as a $d_k$-dimensional vector.\nOutput attention weights: $n$ tokens, each represented as a $d_v$-dimensional vector.",
+          "design_rationale": "Scaled dot-product attention enables the model to capture long-range dependencies and contextual information.",
+          "subtle_details": "The use of a softmax function to normalize the attention weights ensures that the weights are non-negative and sum to 1."
+        },
+        {
+          "component_name": "Position-Wise Feed-Forward Networks",
+          "purpose": "To transform the input tokens through a position-wise fully connected feed-forward network.",
+          "detailed_explanation": "Position-wise feed-forward networks involve two linear transformations with a ReLU activation in between. The linear transformations are applied to each position separately and identically.",
+          "mathematical_formulation": "$$FFN(x) = max(0, xW_1 + b_1)W_2 + b_2$$",
+          "dimension_analysis": "Input tokens: $n$ tokens, each represented as a $d_{\text{model}}$-dimensional vector.\nOutput tokens: $n$ tokens, each represented as a $d_{\text{model}}$-dimensional vector.",
+          "design_rationale": "Position-wise feed-forward networks enable the model to capture non-linear relationships between tokens.",
+          "subtle_details": "The use of a ReLU activation function ensures that the output values are non-negative."
+        },
+        {
+          "component_name": "Positional Encoding",
+          "purpose": "To inject information about the relative or absolute position of the tokens in the sequence.",
+          "detailed_explanation": "Positional encoding involves adding a positional encoding to the input embeddings at each position. The positional encoding is a sinusoidal function of the position.",
+          "mathematical_formulation": "$$PE_{(pos, 2i)} = sin(pos / 10000^{2i/d})$$\n$$PE_{(pos, 2i+1)} = cos(pos / 10000^{2i/d})$$",
+          "dimension_analysis": "Input tokens: $n$ tokens, each represented as a $d_{\text{model}}$-dimensional vector.\nOutput tokens: $n$ tokens, each represented as a $d_{\text{model}}$-dimensional vector.",
+          "design_rationale": "Positional encoding enables the model to capture the order of the tokens in the sequence.",
+          "subtle_details": "The use of a sinusoidal function ensures that the positional encoding is smooth and differentiable."
+        }
+      ],
+      "integration_flow": "The Transformer architecture integrates the encoder and decoder stacks, multi-head attention, scaled dot-product attention, position-wise feed-forward networks, and positional encoding to process input sequences and generate output sequences. The encoder maps the input sequence to a sequence of continuous representations, while the decoder generates the output sequence one element at a time. The multi-head attention mechanism enables the model to jointly attend to information from different representation subspaces at different positions. The scaled dot-product attention mechanism computes the attention weights between tokens. The position-wise feed-forward networks transform the input tokens through a position-wise fully connected feed-forward network. The positional encoding injects information about the relative or absolute position of the tokens in the sequence.",
+      "critical_insights": [
+        "The Transformer architecture enables the model to capture long-range dependencies and contextual information through the use of self-attention mechanisms.",
+        "The multi-head attention mechanism allows the model to capture different types of information and relationships between tokens.",
+        "The scaled dot-product attention mechanism enables the model to capture long-range dependencies and contextual information.",
+        "The position-wise feed-forward networks enable the model to capture non-linear relationships between tokens.",
+        "The positional encoding injects information about the relative or absolute position of the tokens in the sequence."
+      ],
+      "implementation_considerations": [
+        "The Transformer architecture requires a large amount of computational resources and memory.",
+        "The use of self-attention mechanisms and multi-head attention requires careful tuning of hyperparameters.",
+        "The scaled dot-product attention mechanism requires careful tuning of the attention weights.",
+        "The position-wise feed-forward networks require careful tuning of the linear transformations and activation functions.",
+        "The positional encoding requires careful tuning of the sinusoidal function."
+      ]
+    },
+    "model_file": "import torch\nimport torch.nn as nn\nimport torch.nn.functional as F\nimport math\n\nclass TransformerModel(nn.Module):\n    '''\n    The Transformer model architecture as described in the paper \"Attention Is All You Need\".\n    \n    Args:\n        input_dim (int): The dimension of the input embeddings.\n        output_dim (int): The dimension of the output embeddings.\n        max_len (int): The maximum length of the input sequence.\n        num_heads (int): The number of attention heads.\n        num_layers (int): The number of layers in the encoder and decoder.\n        dropout (float): The dropout probability.\n    '''\n    def __init__(self, input_dim, output_dim, max_len, num_heads, num_layers, dropout):\n        super(TransformerModel, self).__init__()\n        self.encoder = TransformerEncoder(input_dim, max_len, num_heads, num_layers, dropout)\n        self.decoder = TransformerDecoder(output_dim, max_len, num_heads, num_layers, dropout)\n        self.fc = nn.Linear(input_dim, output_dim)\n\n    def forward(self, input_seq):\n        # [batch, seq_len, input_dim] -> [batch, seq_len, input_dim]\n        # Example: [1, 10, 512] -> [1, 10, 512]\n        encoder_output = self.encoder(input_seq)\n        # [batch, seq_len, input_dim] -> [batch, seq_len, output_dim]\n        # Example: [1, 10, 512] -> [1, 10, 512]\n        decoder_output = self.decoder(encoder_output)\n        # [batch, seq_len, output_dim] -> [batch, seq_len, output_dim]\n        # Example: [1, 10, 512] -> [1, 10, 512]\n        output = self.fc(decoder_output)\n        return output\n\nclass TransformerEncoder(nn.Module):\n    '''\n    The Transformer encoder architecture.\n    \n    Args:\n        input_dim (int): The dimension of the input embeddings.\n        max_len (int): The maximum length of the input sequence.\n        num_heads (int): The number of attention heads.\n        num_layers (int): The number of layers in the encoder.\n        dropout (float): The dropout probability.\n    '''\n    def __init__(self, input_dim, max_len, num_heads, num_layers, dropout):\n        super(TransformerEncoder, self).__init__()\n        self.layers = nn.ModuleList([TransformerEncoderLayer(input_dim, max_len, num_heads, dropout) for _ in range(num_layers)])\n\n    def forward(self, input_seq):\n        # [batch, seq_len, input_dim] -> [batch, seq_len, input_dim]\n        # Example: [1, 10, 512] -> [1, 10, 512]\n        for layer in self.layers:\n            input_seq = layer(input_seq)\n        return input_seq\n\nclass TransformerEncoderLayer(nn.Module):\n    '''\n    A single layer of the Transformer encoder architecture.\n    \n    Args:\n        input_dim (int): The dimension of the input embeddings.\n        max_len (int): The maximum length of the input sequence.\n        num_heads (int): The number of attention heads.\n        dropout (float): The dropout probability.\n    '''\n    def __init__(self, input_dim, max_len, num_heads, dropout):\n        super(TransformerEncoderLayer, self).__init__()\n        self.self_attn = MultiHeadAttention(input_dim, num_heads, dropout)\n        self.feed_forward = nn.Linear(input_dim, input_dim)\n        self.dropout = nn.Dropout(dropout)\n        self.layer_norm1 = nn.LayerNorm(input_dim)\n        self.layer_norm2 = nn.LayerNorm(input_dim)\n\n    def forward(self, input_seq):\n        # [batch, seq_len, input_dim] -> [batch, seq_len, input_dim]\n        # Example: [1, 10, 512] -> [1, 10, 512]\n        attn_output = self.self_attn(input_seq)\n        # [batch, seq_len, input_dim] -> [batch, seq_len, input_dim]\n        # Example: [1, 10, 512] -> [1, 10, 512]\n        norm_output = self.layer_norm1(input_seq + self.dropout(attn_output))\n        # [batch, seq_len, input_dim] -> [batch, seq_len, input_dim]\n        # Example: [1, 10, 512] -> [1, 10, 512]\n        ff_output = self.feed_forward(norm_output)\n        # [batch, seq_len, input_dim] -> [batch, seq_len, input_dim]\n        # Example: [1, 10, 512] -> [1, 10, 512]\n        output = self.layer_norm2(norm_output + self.dropout(ff_output))\n        return output\n\nclass MultiHeadAttention(nn.Module):\n    '''\n    The multi-head attention mechanism.\n    \n    Args:\n        input_dim (int): The dimension of the input embeddings.\n        num_heads (int): The number of attention heads.\n        dropout (float): The dropout probability.\n    '''\n    def __init__(self, input_dim, num_heads, dropout):\n        super(MultiHeadAttention, self).__init__()\n        self.query_linear = nn.Linear(input_dim, input_dim)\n        self.key_linear = nn.Linear(input_dim, input_dim)\n        self.value_linear = nn.Linear(input_dim, input_dim)\n        self.dropout = nn.Dropout(dropout)\n        self.num_heads = num_heads\n\n    def forward(self, input_seq):\n        # [batch, seq_len, input_dim] -> [batch, seq_len, input_dim]\n        # Example: [1, 10, 512] -> [1, 10, 512]\n        query = self.query_linear(input_seq)\n        key = self.key_linear(input_seq)\n        value = self.value_linear(input_seq)\n        # [batch, seq_len, input_dim] -> [batch, num_heads, seq_len, input_dim/num_heads]\n        # Example: [1, 10, 512] -> [1, 8, 10, 64]\n        query = query.view(-1, input_seq.size(1), self.num_heads, -1).transpose(1, 2)\n        key = key.view(-1, input_seq.size(1), self.num_heads, -1).transpose(1, 2)\n        value = value.view(-1, input_seq.size(1), self.num_heads, -1).transpose(1, 2)\n        # [batch, num_heads, seq_len, input_dim/num_heads] -> [batch, num_heads, seq_len, seq_len]\n        # Example: [1, 8, 10, 64] -> [1, 8, 10, 10]\n        attn_weights = torch.matmul(query, key.transpose(-1, -2)) / math.sqrt(query.size(-1))\n        # [batch, num_heads, seq_len, seq_len] -> [batch, num_heads, seq_len, seq_len]\n        # Example: [1, 8, 10, 10] -> [1, 8, 10, 10]\n        attn_weights = F.softmax(attn_weights, dim=-1)\n        # [batch, num_heads, seq_len, seq_len] -> [batch, num_heads, seq_len, input_dim/num_heads]\n        # Example: [1, 8, 10, 10] -> [1, 8, 10, 64]\n        attn_output = torch.matmul(attn_weights, value)\n        # [batch, num_heads, seq_len, input_dim/num_heads] -> [batch, seq_len, input_dim]\n        # Example: [1, 8, 10, 64] -> [1, 10, 512]\n        attn_output = attn_output.transpose(1, 2).contiguous().view(-1, input_seq.size(1), input_seq.size(2))\n        return self.dropout(attn_output)\n\nclass TransformerDecoder(nn.Module):\n    '''\n    The Transformer decoder architecture.\n    \n    Args:\n        output_dim (int): The dimension of the output embeddings.\n        max_len (int): The maximum length of the input sequence.\n        num_heads (int): The number of attention heads.\n        num_layers (int): The number of layers in the decoder.\n        dropout (float): The dropout probability.\n    '''\n    def __init__(self, output_dim, max_len, num_heads, num_layers, dropout):\n        super(TransformerDecoder, self).__init__()\n        self.layers = nn.ModuleList([TransformerDecoderLayer(output_dim, max_len, num_heads, dropout) for _ in range(num_layers)])\n\n    def forward(self, input_seq):\n        # [batch, seq_len, output_dim] -> [batch, seq_len, output_dim]\n        # Example: [1, 10, 512] -> [1, 10, 512]\n        for layer in self.layers:\n            input_seq = layer(input_seq)\n        return input_seq\n\nclass TransformerDecoderLayer(nn.Module):\n    '''\n    A single layer of the Transformer decoder architecture.\n    \n    Args:\n        output_dim (int): The dimension of the output embeddings.\n        max_len (int): The maximum length of the input sequence.\n        num_heads (int): The number of attention heads.\n        dropout (float): The dropout probability.\n    '''\n    def __init__(self, output_dim, max_len, num_heads, dropout):\n        super(TransformerDecoderLayer, self).__init__()\n        self.self_attn = MultiHeadAttention(output_dim, num_heads, dropout)\n        self.encoder_attn = MultiHeadAttention(output_dim, num_heads, dropout)\n        self.feed_forward = nn.Linear(output_dim, output_dim)\n        self.dropout = nn.Dropout(dropout)\n        self.layer_norm1 = nn.LayerNorm(output_dim)\n        self.layer_norm2 = nn.LayerNorm(output_dim)\n        self.layer_norm3 = nn.LayerNorm(output_dim)\n\n    def forward(self, input_seq):\n        # [batch, seq_len, output_dim] -> [batch, seq_len, output_dim]\n        # Example: [1, 10, 512] -> [1, 10, 512]\n        self_attn_output = self.self_attn(input_seq)\n        # [batch, seq_len, output_dim] -> [batch, seq_len, output_dim]\n        # Example: [1, 10, 512] -> [1, 10, 512]\n        norm_output1 = self.layer_norm1(input_seq + self.dropout(self_attn_output))\n        # [batch, seq_len, output_dim] -> [batch, seq_len, output_dim]\n        # Example: [1, 10, 512] -> [1, 10, 512]\n        encoder_attn_output = self.encoder_attn(norm_output1)\n        # [batch, seq_len, output_dim] -> [batch, seq_len, output_dim]\n        # Example: [1, 10, 512] -> [1, 10, 512]\n        norm_output2 = self.layer_norm2(norm_output1 + self.dropout(encoder_attn_output))\n        # [batch, seq_len, output_dim] -> [batch, seq_len, output_dim]\n        # Example: [1, 10, 512] -> [1, 10, 512]\n        ff_output = self.feed_forward(norm_output2)\n        # [batch, seq_len, output_dim] -> [batch, seq_len, output_dim]\n        # Example: [1, 10, 512] -> [1, 10, 512]\n        output = self.layer_norm3(norm_output2 + self.dropout(ff_output))\n        return output\n\nif __name__ == \"__main__\":\n    model = TransformerModel(512, 512, 10, 8, 6, 0.1)\n    input_seq = torch.randn(1, 10, 512)\n    output = model(input_seq)\n    print(output.shape)"
+  }
+}

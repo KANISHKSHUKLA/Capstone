@@ -71,7 +71,7 @@ export default function ArchitectureDeepDive({ data }: ArchitectureDeepDiveProps
   }
 
   return (
-    <Card title="🔬 Architecture Deep Dive">
+    <Card title="Architecture Deep Dive">
       <div className="space-y-6">
         {/* Overview Section */}
         {data.overview && (

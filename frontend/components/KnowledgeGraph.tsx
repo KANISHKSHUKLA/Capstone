@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import ForceGraph2D from 'react-force-graph-2d';
-// import ForceGraph3D from 'react-force-graph-3d';
-import * as d3 from 'd3';
+import ForceGraph3D from 'react-force-graph-3d';
 import { ResizableBox } from 'react-resizable';
 
 interface Node {
@@ -36,6 +35,7 @@ interface KnowledgeGraphProps {
   width?: number;
   height?: number;
   resizable?: boolean;
+  responsive?: boolean;
 }
 
 const NODE_COLORS = {
@@ -62,9 +62,10 @@ const NODE_SIZES = {
 
 const KnowledgeGraph: React.FC<KnowledgeGraphProps> = ({ 
   graphData, 
-  width = 800, 
+  width = 800,
   height = 600,
-  resizable = true 
+  resizable = true,
+  responsive = true,
 }) => {
   const [use3D, setUse3D] = useState<boolean>(false);
   const [hoveredNode, setHoveredNode] = useState<Node | null>(null);
@@ -82,6 +83,23 @@ const KnowledgeGraph: React.FC<KnowledgeGraphProps> = ({
   });
   
   const graphRef = useRef<any>();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [size, setSize] = useState<{ w: number; h: number }>({ w: width, h: height });
+
+  useEffect(() => {
+    if (!responsive) return;
+    const el = containerRef.current;
+    if (!el) return;
+
+    const ro = new ResizeObserver(() => {
+      const rect = el.getBoundingClientRect();
+      const w = Math.max(320, Math.floor(rect.width));
+      setSize({ w, h: height });
+    });
+
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [responsive, height]);
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
       setMousePosition({ x: event.clientX, y: event.clientY });
@@ -198,7 +216,7 @@ const KnowledgeGraph: React.FC<KnowledgeGraphProps> = ({
   
   // Generate a UI with graph
   const graphComponent = (
-    <div className="relative w-full h-full bg-white rounded-lg border overflow-hidden">
+    <div className="relative w-full h-full bg-white/70 rounded-2xl border border-neutral-200/70 overflow-hidden">
       {loading ? (
         <div className="flex items-center justify-center h-full">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-600"></div>
@@ -206,8 +224,8 @@ const KnowledgeGraph: React.FC<KnowledgeGraphProps> = ({
       ) : transformedData.nodes.length === 0 ? (
         <div className="flex items-center justify-center h-full">
           <div className="text-center p-4">
-            <h3 className="text-lg font-semibold text-gray-700">No knowledge graph available</h3>
-            <p className="text-gray-500 mt-2">The analysis did not generate a knowledge graph for this paper.</p>
+            <h3 className="text-lg font-semibold text-neutral-800">No knowledge graph available</h3>
+            <p className="text-neutral-500 mt-2">The analysis did not generate a knowledge graph for this paper.</p>
           </div>
         </div>
       ) : (
@@ -216,13 +234,13 @@ const KnowledgeGraph: React.FC<KnowledgeGraphProps> = ({
           <div className="absolute top-4 right-4 z-10 flex space-x-2">
             <button
               onClick={toggleView}
-              className="px-3 py-1 text-sm bg-white border rounded-md shadow-sm hover:bg-gray-50"
+              className="px-3 py-1.5 text-sm bg-white/80 border border-neutral-200/70 rounded-xl shadow-sm hover:bg-white transition-colors"
             >
               {use3D ? 'Switch to 2D' : 'Switch to 3D'}
             </button>
             <button
               onClick={resetFilters}
-              className="px-3 py-1 text-sm bg-white border rounded-md shadow-sm hover:bg-gray-50"
+              className="px-3 py-1.5 text-sm bg-white/80 border border-neutral-200/70 rounded-xl shadow-sm hover:bg-white transition-colors"
             >
               Reset Filters
             </button>
@@ -235,12 +253,12 @@ const KnowledgeGraph: React.FC<KnowledgeGraphProps> = ({
               placeholder="Search nodes..."
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
-              className="w-full px-3 py-2 text-sm border rounded-md shadow-sm"
+              className="w-full px-3 py-2 text-sm border border-neutral-200/70 rounded-xl shadow-sm bg-white/80 focus:outline-none focus:ring-2 focus:ring-primary-500/40"
             />
           </div>
           
           {/* Filters */}
-          <div className="absolute top-16 left-4 z-10 bg-white p-2 rounded-md shadow-sm border">
+          <div className="absolute top-16 left-4 z-10 bg-white/80 backdrop-blur p-2 rounded-xl shadow-sm border border-neutral-200/70">
             <h4 className="text-xs font-semibold mb-1">Filter by type:</h4>
             {Object.keys(filters).map(type => (
               <div key={type} className="flex items-center text-xs mb-1">
@@ -262,25 +280,25 @@ const KnowledgeGraph: React.FC<KnowledgeGraphProps> = ({
           
           {/* Node details */}
           {selectedNode && (
-            <div className="absolute bottom-4 left-4 z-10 bg-white p-3 rounded-md shadow-md border w-72 max-h-64 overflow-y-auto">
+            <div className="absolute bottom-4 left-4 z-10 bg-white/90 backdrop-blur p-3 rounded-2xl shadow-md border border-neutral-200/70 w-72 max-h-64 overflow-y-auto">
               <button 
-                className="absolute top-1 right-1 text-gray-400 hover:text-gray-600" 
+                className="absolute top-2 right-2 text-neutral-400 hover:text-neutral-700" 
                 onClick={() => setSelectedNode(null)}
               >
                 ✕
               </button>
               <h3 className="font-bold text-lg mb-1">{selectedNode.label}</h3>
-              <div className="text-xs text-gray-500 mb-2 flex items-center">
+              <div className="text-xs text-neutral-500 mb-2 flex items-center">
                 <span 
                   className="w-3 h-3 inline-block rounded-full mr-1"
                   style={{ backgroundColor: selectedNode.color }}
                 ></span>
                 <span className="capitalize">{selectedNode.type}</span>
               </div>
-              <p className="text-sm text-gray-700">{selectedNode.description}</p>
+              <p className="text-sm text-neutral-700">{selectedNode.description}</p>
               
               {/* Connected nodes */}
-              <div className="mt-3 pt-2 border-t border-gray-200">
+              <div className="mt-3 pt-2 border-t border-neutral-200">
                 <h4 className="text-xs font-semibold mb-1">Connections:</h4>
                 <div className="space-y-1">
                   {filteredData.links
@@ -302,7 +320,7 @@ const KnowledgeGraph: React.FC<KnowledgeGraphProps> = ({
                       
                       return (
                         <div key={index} className="text-xs flex items-center">
-                          <span className="text-gray-500">
+                          <span className="text-neutral-600">
                             {isSource ? 'To' : 'From'} <span className="font-medium">{connectedNode.label}</span> 
                             {link.label && <span> ({link.label})</span>}
                           </span>
@@ -317,7 +335,7 @@ const KnowledgeGraph: React.FC<KnowledgeGraphProps> = ({
           {/* Hover tooltip */}
           {hoveredNode && hoveredNode !== selectedNode && (
           <div 
-            className="fixed z-10 bg-white p-2 rounded-md shadow-md border text-xs"
+            className="fixed z-10 bg-white/90 backdrop-blur p-2 rounded-xl shadow-md border border-neutral-200/70 text-xs"
             style={{ 
               left: `${mousePosition.x + 5}px`, 
               top: `${mousePosition.y + 5}px`,
@@ -326,25 +344,36 @@ const KnowledgeGraph: React.FC<KnowledgeGraphProps> = ({
             }}
           >
             <div className="font-bold">{hoveredNode.label}</div>
-            <div className="text-gray-500 capitalize">{hoveredNode.type}</div>
+            <div className="text-neutral-500 capitalize">{hoveredNode.type}</div>
           </div>
         )}
           
           {/* Graph */}
-          <div className="w-full" style={{ height: '600px', position: 'relative', overflow: 'hidden', border: '1px solid #e5e7eb', borderRadius: '0.5rem' }}>
+          <div
+            className="w-full rounded-2xl overflow-hidden border border-neutral-200/70 bg-white/50"
+            style={{ height: responsive ? size.h : height, position: 'relative' }}
+          >
             {use3D ? (
-              // 3D graph temporarily disabled
-              <div className="flex items-center justify-center h-full bg-gray-100 rounded-lg">
-                <div className="text-center p-4">
-                  <p className="text-lg font-medium">3D view is temporarily unavailable</p>
-                  <p className="text-sm text-gray-600 mt-2">Please use the 2D view instead</p>
-                  <button
-                    onClick={() => setUse3D(false)}
-                    className="mt-4 px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors"
-                  >
-                    Switch to 2D View
-                  </button>
-                </div>
+              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
+                <ForceGraph3D
+                  ref={graphRef}
+                  graphData={filteredData}
+                  nodeLabel="label"
+                  nodeColor="color"
+                  nodeVal="val"
+                  linkColor={() => "#aaaaaa"}
+                  linkWidth={0.5}
+                  linkDirectionalParticles={2}
+                  linkDirectionalParticleWidth={1.2}
+                  onNodeClick={handleNodeClick}
+                  onNodeHover={handleNodeHover}
+                  linkCurvature={0.1}
+                  cooldownTicks={100}
+                  cooldownTime={2000}
+                  width={responsive ? size.w : width}
+                  height={responsive ? size.h : height}
+                  showNavInfo={false}
+                />
               </div>
             ) : (
               <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
@@ -363,6 +392,8 @@ const KnowledgeGraph: React.FC<KnowledgeGraphProps> = ({
                   linkCurvature={0.1}
                   cooldownTicks={100}
                   cooldownTime={2000}
+                  width={responsive ? size.w : width}
+                  height={responsive ? size.h : height}
                 />
               </div>
             )}
@@ -372,26 +403,31 @@ const KnowledgeGraph: React.FC<KnowledgeGraphProps> = ({
     </div>
   );
   
-  // Wrap with ResizableBox if resizable
+  // Responsive mode: fill container width, fixed height
+  if (responsive) {
+    return (
+      <div ref={containerRef} className="w-full" style={{ height }}>
+        {graphComponent}
+      </div>
+    );
+  }
+
+  // Optional resizable mode (desktop exploration)
   if (resizable) {
     return (
       <ResizableBox 
         width={width} 
         height={height}
-        minConstraints={[300, 300]}
+        minConstraints={[320, 320]}
         maxConstraints={[2000, 1200]}
-        className="border rounded-lg shadow-md bg-white overflow-hidden"
+        className="border border-neutral-200/70 rounded-2xl shadow-soft bg-white/70 overflow-hidden"
       >
         {graphComponent}
       </ResizableBox>
     );
   }
-  
-  return (
-    <div style={{ width, height }}>
-      {graphComponent}
-    </div>
-  );
+
+  return <div style={{ width, height }}>{graphComponent}</div>;
 };
 
 export default KnowledgeGraph;

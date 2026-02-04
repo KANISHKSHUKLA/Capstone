@@ -8,11 +8,13 @@ interface CardProps {
 
 export function Card({ title, children, className = '' }: CardProps) {
   return (
-    <div className={`bg-white rounded-lg shadow-sm border border-neutral-200 overflow-hidden ${className}`}>
-      <div className="px-6 py-4 bg-primary-50 border-b border-neutral-200">
-        <h3 className="text-lg font-semibold text-primary-700">{title}</h3>
+    <section className={`app-card rounded-2xl shadow-soft overflow-hidden ${className}`}>
+      <div className="px-6 py-4 border-b border-neutral-200/70 bg-white/50">
+        <h3 className="text-base sm:text-lg font-semibold text-neutral-900">
+          {title}
+        </h3>
       </div>
       <div className="p-6">{children}</div>
-    </div>
+    </section>
   );
 }

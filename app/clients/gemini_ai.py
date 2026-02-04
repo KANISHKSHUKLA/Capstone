@@ -2,6 +2,7 @@ import logging
 import json
 import re
 import time
+import asyncio
 from typing import Dict, List, Any, Optional
 from google import genai
 from google.genai import types
@@ -70,14 +71,15 @@ class GeminiClient(AIClient):
             logger.error(f"Error in call_llm: {str(e)}")
             return {}
 
-    async def _try_model_call(self, messages: List[Dict[str, str]], model: str, max_tokens: Optional[int] = None) -> Dict[str, Any]:
+    async def _try_model_call(self, messages: List[Dict[str, str]], model: str, max_tokens: Optional[int] = None, retry_count: int = 0) -> Dict[str, Any]:
         """
-        Attempt a call to a specific model.
+        Attempt a call to a specific model with retry logic for rate limits.
         
         Args:
             messages: List of message dictionaries in chat format
             model: Model name to use
             max_tokens: Maximum tokens for the response
+            retry_count: Current retry attempt (for exponential backoff)
             
         Returns:
             Dictionary containing the parsed JSON response or empty dict if failed
@@ -85,6 +87,9 @@ class GeminiClient(AIClient):
         if not self.client:
             logger.error("Gemini client not initialized")
             return {}
+        
+        max_retries = 5  # Increased retries
+        base_delay = 15  # Start with 15 seconds (longer for free tier)
         
         try:
             start_time = time.time()
@@ -148,8 +153,21 @@ class GeminiClient(AIClient):
                 
                 return await self.parse_json(response.text)
             except Exception as e:
-                logger.warning(f"Error while calling Gemini with model '{model}': {str(e)}")
-                return {}
+                error_str = str(e)
+                # Check if it's a rate limit error (429)
+                if "429" in error_str or "RESOURCE_EXHAUSTED" in error_str or "quota" in error_str.lower():
+                    if retry_count < max_retries:
+                        # Exponential backoff: 15s, 30s, 60s, 120s, 240s
+                        delay = base_delay * (2 ** retry_count)
+                        logger.warning(f"Rate limit hit (429). Retrying in {delay}s (attempt {retry_count + 1}/{max_retries})...")
+                        await asyncio.sleep(delay)
+                        return await self._try_model_call(messages, model, max_tokens, retry_count + 1)
+                    else:
+                        logger.error(f"Rate limit exceeded after {max_retries} retries. Please wait 5-10 minutes before trying again.")
+                        return {"error": "Rate limit exceeded. Please wait a few minutes and try again."}
+                else:
+                    logger.warning(f"Error while calling Gemini with model '{model}': {str(e)}")
+                    return {}
             
         except Exception as e:
             logger.warning(f"Error in _try_model_call with model '{model}': {str(e)}")

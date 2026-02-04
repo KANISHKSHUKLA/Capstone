@@ -1,0 +1,32 @@
+{
+  "job_id": "045baf24-d6bf-404a-b9f2-a455ff00b10e",
+  "created_at": "2026-02-04T23:59:50.270537",
+  "status": "completed",
+  "filename": "NIPS-2017-attention-is-all-you-need-Paper (1).pdf",
+  "result": {
+    "metadata": {
+      "title": "Attention is All you Need",
+      "authors": "Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin"
+    },
+    "key_concepts": {
+      "error": "Gemini API key not configured"
+    },
+    "problem_statement": {
+      "error": "Gemini API key not configured"
+    },
+    "full_explanation": {
+      "error": "Gemini API key not configured"
+    },
+    "pseudo_code": {
+      "error": "Gemini API key not configured"
+    },
+    "knowledge_graph": {
+      "nodes": [],
+      "edges": []
+    },
+    "architecture_deep_dive": {
+      "error": "Gemini API key not configured"
+    },
+    "model_file": ""
+  }
+}

@@ -4,6 +4,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { apiFetch } from '../lib/api';
 
 interface ChatMessage {
   timestamp: string;
@@ -39,7 +40,7 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ jobId }) => {
 
   const fetchChatHistory = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/api/jobs/${jobId}/chat`);
+      const response = await apiFetch(`/api/jobs/${jobId}/chat`);
       
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
@@ -68,7 +69,7 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ jobId }) => {
     setChatHistory(prev => [...prev, tempChat]);
     
     try {
-      const response = await fetch(`http://localhost:8000/api/jobs/${jobId}/chat`, {
+      const response = await apiFetch(`/api/jobs/${jobId}/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -149,7 +150,7 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ jobId }) => {
   
   const renderMessageContent = (content: string) => {
     return (
-      <div className="markdown-content">
+      <div className="markdown-content prose prose-sm max-w-none prose-neutral prose-a:text-primary-700 prose-a:no-underline hover:prose-a:underline prose-code:before:hidden prose-code:after:hidden">
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
           components={{
@@ -169,7 +170,7 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ jobId }) => {
                   </SyntaxHighlighter>
                 </div>
               ) : (
-                <code className={className} {...props}>
+                <code className={`rounded bg-neutral-100 px-1 py-0.5 text-xs ${className || ''}`} {...props}>
                   {children}
                 </code>
               );
@@ -225,7 +226,7 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ jobId }) => {
       {/* Chat Toggle Button */}
       <button 
         onClick={togglePanel}
-        className="fixed bottom-6 right-6 z-20 bg-primary-600 text-white p-3 rounded-full shadow-lg hover:bg-primary-700 transition-colors"
+        className="fixed bottom-6 right-6 z-30 bg-primary-600 text-white p-3 rounded-2xl shadow-soft hover:bg-primary-700 transition-colors app-ring"
         aria-label={isOpen ? "Close chat" : "Open chat"}
       >
         {isOpen ? <FiX size={20} /> : <FiMessageSquare size={20} />}
@@ -235,7 +236,7 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ jobId }) => {
       {isOpen && (
         <div
           ref={resizeRef}
-          className="fixed z-20 w-1 h-full bg-primary-200 hover:bg-primary-400 cursor-col-resize"
+          className="fixed z-30 w-1 h-full bg-primary-200 hover:bg-primary-400 cursor-col-resize"
           style={{ 
             left: `calc(100% - ${panelWidth}px - 1px)`,
             top: 0
@@ -246,13 +247,13 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ jobId }) => {
 
       {/* Chat Panel */}
       <div 
-        className="fixed right-0 top-0 h-full bg-white shadow-lg z-10 transition-all duration-300 ease-in-out overflow-hidden flex flex-col"
+        className="fixed right-0 top-0 h-full bg-white/80 backdrop-blur border-l border-neutral-200/70 shadow-soft z-20 transition-all duration-300 ease-in-out overflow-hidden flex flex-col"
         style={{ 
           width: isOpen ? `${panelWidth}px` : '0',
         }}
       >
-        <div className="p-4 border-b border-neutral-200 bg-primary-50 flex justify-between items-center">
-          <h2 className="text-lg font-semibold text-primary-700">Paper Chat</h2>
+        <div className="p-4 border-b border-neutral-200/70 bg-white/50 flex justify-between items-center">
+          <h2 className="text-base font-semibold text-neutral-900">Paper chat</h2>
           <button 
             onClick={togglePanel}
             className="text-neutral-500 hover:text-neutral-700"
@@ -263,7 +264,7 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ jobId }) => {
         </div>
 
         {/* Chat Messages */}
-        <div className="flex-grow overflow-y-auto p-4 bg-neutral-50">
+        <div className="flex-grow overflow-y-auto p-4 bg-neutral-50/60">
           {chatHistory.length === 0 ? (
             <div className="text-center text-neutral-500 mt-8">
               <p>No messages yet. Ask a question about the paper!</p>
@@ -273,14 +274,14 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ jobId }) => {
               <div key={index} className="mb-4">
                 {/* User message */}
                 <div className="flex justify-end mb-2">
-                  <div className="bg-primary-100 text-primary-800 p-3 rounded-lg max-w-[80%] break-words">
+                  <div className="bg-primary-600 text-white p-3 rounded-2xl max-w-[85%] break-words shadow-sm">
                     {chat.query}
                   </div>
                 </div>
                 
                 {/* AI response */}
                 <div className="flex justify-start">
-                  <div className="bg-white border border-neutral-200 p-3 rounded-lg shadow-sm max-w-[80%] break-words">
+                  <div className="bg-white/80 border border-neutral-200/70 p-3 rounded-2xl shadow-sm max-w-[85%] break-words">
                     {renderMessageContent(chat.response)}
                   </div>
                 </div>
@@ -290,7 +291,7 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ jobId }) => {
           {/* Loading animation */}
           {isLoading && (
             <div className="flex justify-start my-4">
-              <div className="bg-white border border-neutral-200 p-3 rounded-lg shadow-sm break-words">
+              <div className="bg-white/80 border border-neutral-200/70 p-3 rounded-2xl shadow-sm break-words">
                 <div className="flex items-center space-x-1">
                   <div className="w-2 h-2 bg-neutral-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
                   <div className="w-2 h-2 bg-neutral-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
@@ -303,25 +304,25 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ jobId }) => {
         </div>
 
         {/* Message Input */}
-        <div className="p-4 border-t border-neutral-200 bg-white">
+        <div className="p-4 border-t border-neutral-200/70 bg-white/60">
           <div className="flex items-center">
             <textarea
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Ask about the paper..."
-              className="flex-grow p-2 border border-neutral-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
+              className="flex-grow p-2.5 border border-neutral-300/80 rounded-l-2xl bg-white/80 resize-none app-ring"
               rows={2}
               disabled={isLoading}
             />
             <button
               onClick={sendMessage}
               disabled={isLoading || !message.trim()}
-              className={`p-3 rounded-r-md ${
+              className={`p-3.5 rounded-r-2xl ${
                 isLoading || !message.trim()
                   ? 'bg-neutral-300 text-neutral-500'
                   : 'bg-primary-600 text-white hover:bg-primary-700'
-              } transition-colors`}
+              } transition-colors app-ring`}
               aria-label="Send message"
             >
               <FiSend size={18} />

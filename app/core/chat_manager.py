@@ -98,13 +98,26 @@ class ChatManager:
         if not response:
             return "I'm sorry, I couldn't generate a response. Please try again."
         
+        # Check for error messages
+        if isinstance(response, dict) and "error" in response:
+            return f"I encountered an error: {response['error']}"
+        
+        # Try common response keys
         if isinstance(response, dict) and "answer" in response:
             return response["answer"]
             
         if isinstance(response, dict) and "response" in response:
             return response["response"]
+        
+        # If response is a dict with text content, try to extract it
+        if isinstance(response, dict) and "content" in response:
+            return response["content"]
             
+        # If it's a dict, try to format it nicely
         if isinstance(response, dict):
+            # If it's a single key-value pair, return the value
+            if len(response) == 1:
+                return str(list(response.values())[0])
             try:
                 return json.dumps(response, indent=2)
             except Exception:

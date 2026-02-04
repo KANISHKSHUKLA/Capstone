@@ -1,0 +1,22 @@
+{
+  "job_id": "e2f854bc-8dcf-4eac-ad58-12041a0d4dc7",
+  "created_at": "2026-02-05T00:03:52.248513",
+  "status": "completed",
+  "filename": "NIPS-2017-attention-is-all-you-need-Paper (1).pdf",
+  "result": {
+    "metadata": {
+      "title": "Attention is All you Need",
+      "authors": "Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin"
+    },
+    "key_concepts": {},
+    "problem_statement": {},
+    "full_explanation": {},
+    "pseudo_code": {},
+    "knowledge_graph": {
+      "nodes": [],
+      "edges": []
+    },
+    "architecture_deep_dive": {},
+    "model_file": ""
+  }
+}
