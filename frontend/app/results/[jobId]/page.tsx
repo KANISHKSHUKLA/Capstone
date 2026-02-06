@@ -15,6 +15,21 @@ import { Loader } from '../../../components/Loader';
 import ChatPanel from '../../../components/ChatPanel';
 import { apiFetch } from '../../../lib/api';
 
+const LOADING_TIPS = [
+  'Getting to know the authors and affiliations…',
+  'Scanning the abstract and conclusion…',
+  'Mapping out sections and headings…',
+  'Extracting key concepts and terminology…',
+  'Understanding the core problem and goals…',
+  'Reviewing related work and baselines…',
+  'Analyzing methodology and experiments…',
+  'Tracking datasets, metrics, and benchmarks…',
+  'Summarizing results and main findings…',
+  'Identifying limitations and future directions…',
+  'Preparing the interactive knowledge graph…',
+  'Formatting insights for each results tab…',
+];
+
 export default function ResultsPage({ params }: { params: { jobId: string } }) {
   const { jobId } = params;
   const [loading, setLoading] = useState<boolean>(true);
@@ -23,6 +38,7 @@ export default function ResultsPage({ params }: { params: { jobId: string } }) {
   const [progress, setProgress] = useState<number>(0);
   const [statusMessage, setStatusMessage] = useState<string>('Initializing analysis...');
   const [activeTab, setActiveTab] = useState('summary');
+  const [tipIndex, setTipIndex] = useState<number>(0);
 
   useEffect(() => {
     let pollingInterval: NodeJS.Timeout;
@@ -80,6 +96,18 @@ export default function ResultsPage({ params }: { params: { jobId: string } }) {
     };
   }, [jobId]);
 
+  useEffect(() => {
+    if (!loading) return;
+
+    const tipInterval = setInterval(() => {
+      setTipIndex((prev) => (prev + 1) % LOADING_TIPS.length);
+    }, 2500);
+
+    return () => {
+      clearInterval(tipInterval);
+    };
+  }, [loading]);
+
   if (loading) {
     return (
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
@@ -105,6 +133,15 @@ export default function ResultsPage({ params }: { params: { jobId: string } }) {
                 <span>Upload</span>
                 <span>Analyze</span>
                 <span>Format</span>
+              </div>
+
+              <div className="mt-6 text-center text-sm text-neutral-600">
+                <div className="font-medium text-neutral-800 mb-1">
+                  {LOADING_TIPS[tipIndex]}
+                </div>
+                <div className="text-xs text-neutral-500">
+                  These steps are happening behind the scenes while we analyze your paper.
+                </div>
               </div>
             </div>
           </div>

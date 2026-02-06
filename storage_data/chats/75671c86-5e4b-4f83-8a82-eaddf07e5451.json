@@ -1,0 +1,11 @@
+{
+  "job_id": "75671c86-5e4b-4f83-8a82-eaddf07e5451",
+  "updated_at": "2026-02-06T15:31:59.035631",
+  "chat_history": [
+    {
+      "timestamp": "2026-02-06T15:31:59.034815",
+      "query": "tell me aboutnthe authors",
+      "response": "The authors of the paper 'Attention is All You Need' are a team of researchers from Google, led by Ashish Vaswani. The team includes Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, and Illia Polosukhin. They are experts in the field of Natural Language Processing (NLP) and Deep Learning. The authors' backgrounds and expertise in AI and NLP likely contributed to the development of the Transformer architecture, which has since become a foundational component of many NLP models."
+    }
+  ]
+}

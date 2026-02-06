@@ -1,0 +1,526 @@
+{
+  "job_id": "58b0afbf-ad72-43e0-89a4-aca3a82e78da",
+  "created_at": "2026-02-05T15:41:20.334883",
+  "status": "completed",
+  "filename": "NIPS-2017-attention-is-all-you-need-Paper (1).pdf",
+  "result": {
+    "metadata": {
+      "title": "Attention is All you Need",
+      "authors": "Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin"
+    },
+    "key_concepts": {
+      "key_concepts": [
+        {
+          "name": "Transformer",
+          "category": "algorithm",
+          "explanation": "A new simple network architecture based solely on attention mechanisms, dispensing with recurrence and convolutions entirely.",
+          "relevance": "The Transformer is the main contribution of the paper and is used to achieve state-of-the-art results in machine translation tasks."
+        },
+        {
+          "name": "Self-Attention",
+          "category": "algorithm",
+          "explanation": "An attention mechanism relating different positions of a single sequence to compute a representation of the sequence.",
+          "relevance": "Self-Attention is used in the Transformer to draw global dependencies between input and output sequences."
+        },
+        {
+          "name": "Multi-Head Attention",
+          "category": "algorithm",
+          "explanation": "A variant of self-attention that uses multiple attention heads to jointly attend to information from different representation subspaces at different positions.",
+          "relevance": "Multi-Head Attention is used in the Transformer to improve the model's ability to capture long-range dependencies."
+        },
+        {
+          "name": "Scaled Dot-Product Attention",
+          "category": "algorithm",
+          "explanation": "A specific attention mechanism that uses dot products to compute the weights on the values.",
+          "relevance": "Scaled Dot-Product Attention is used in the Transformer to compute the attention weights."
+        },
+        {
+          "name": "Positional Encoding",
+          "category": "algorithm",
+          "explanation": "A technique used to inject information about the relative or absolute position of the tokens in the sequence.",
+          "relevance": "Positional Encoding is used in the Transformer to make use of the order of the sequence."
+        },
+        {
+          "name": "Residual Connection",
+          "category": "algorithm",
+          "explanation": "A technique used to facilitate the training of deep neural networks by adding the input to the output of each layer.",
+          "relevance": "Residual Connection is used in the Transformer to improve the model's ability to learn complex representations."
+        },
+        {
+          "name": "Layer Normalization",
+          "category": "algorithm",
+          "explanation": "A technique used to normalize the activations of each layer to have zero mean and unit variance.",
+          "relevance": "Layer Normalization is used in the Transformer to improve the model's stability and speed up training."
+        }
+      ],
+      "core_technologies": [
+        "Deep Learning",
+        "Attention Mechanisms",
+        "Transformer Architecture",
+        "Self-Attention",
+        "Multi-Head Attention",
+        "Scaled Dot-Product Attention",
+        "Positional Encoding",
+        "Residual Connection",
+        "Layer Normalization"
+      ],
+      "novelty_aspects": [
+        "The Transformer architecture, which uses self-attention and multi-head attention to draw global dependencies between input and output sequences.",
+        "The use of positional encoding to inject information about the relative or absolute position of the tokens in the sequence.",
+        "The use of residual connections and layer normalization to improve the model's stability and speed up training."
+      ],
+      "field_of_study": "Natural Language Processing",
+      "interdisciplinary_connections": [
+        "Computer Science",
+        "Machine Learning",
+        "Deep Learning",
+        "Artificial Intelligence"
+      ]
+    },
+    "problem_statement": {},
+    "full_explanation": {
+      "title": "Attention Is All You Need",
+      "authors": [
+        "Ashish Vaswani",
+        "Noam Shazeer",
+        "Niki Parmar",
+        "Jakob Uszkoreit",
+        "Llion Jones",
+        "Aidan N. Gomez",
+        "Łukasz Kaiser",
+        "Illia Polosukhin"
+      ],
+      "approach_summary": "The authors propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely.",
+      "methodology": "The Transformer model architecture is based on stacked self-attention and point-wise, fully connected layers for both the encoder and decoder. The encoder and decoder stacks consist of identical layers with two sub-layers each. The first sub-layer is a multi-head self-attention mechanism, and the second is a simple, position-wise fully connected feed-forward network. Residual connections and layer normalization are employed around each of the two sub-layers.",
+      "innovations": [
+        "Proposed a new simple network architecture, the Transformer, based solely on attention mechanisms",
+        "Introduced Scaled Dot-Product Attention and Multi-Head Attention",
+        "Employed residual connections and layer normalization",
+        "Used positional encoding to inject information about the relative or absolute position of the tokens in the sequence"
+      ],
+      "architecture": "The Transformer model architecture consists of an encoder and a decoder. The encoder maps an input sequence of symbol representations to a sequence of continuous representations, and the decoder generates an output sequence of symbols one element at a time. The encoder and decoder stacks consist of identical layers with two sub-layers each. The first sub-layer is a multi-head self-attention mechanism, and the second is a simple, position-wise fully connected feed-forward network.",
+      "evaluation": {
+        "metrics": [
+          "BLEU score"
+        ],
+        "datasets": [
+          "WMT 2014 English-to-German translation task",
+          "WMT 2014 English-to-French translation task"
+        ],
+        "baselines": [
+          "Existing best results, including ensembles"
+        ]
+      },
+      "results": "The Transformer model achieves a BLEU score of 28.4 on the WMT 2014 English-to-German translation task, improving over the existing best results by over 2 BLEU. On the WMT 2014 English-to-French translation task, the model establishes a new single-model state-of-the-art BLEU score of 41.0 after training for 3.5 days on eight GPUs.",
+      "limitations": [
+        "The authors acknowledge that the Transformer model requires a large amount of computational resources and training data",
+        "The model's performance may degrade for longer sequence lengths"
+      ],
+      "future_work": [
+        "Investigating the use of the Transformer model for other natural language processing tasks",
+        "Exploring the use of different attention mechanisms and layer normalization techniques",
+        "Developing more efficient and scalable versions of the Transformer model"
+      ]
+    },
+    "pseudo_code": {},
+    "knowledge_graph": {
+      "nodes": [
+        {
+          "id": "node_1",
+          "label": "Sequence Transduction",
+          "type": "concept",
+          "description": "The process of converting input sequences into output sequences."
+        },
+        {
+          "id": "node_2",
+          "label": "Recurrent Neural Networks",
+          "type": "concept",
+          "description": "A type of neural network that uses feedback connections to process sequential data."
+        },
+        {
+          "id": "node_3",
+          "label": "Attention Mechanisms",
+          "type": "concept",
+          "description": "A technique that allows models to focus on specific parts of the input sequence when generating output."
+        },
+        {
+          "id": "node_4",
+          "label": "Transformer Architecture",
+          "type": "concept",
+          "description": "A neural network architecture that relies entirely on self-attention mechanisms to process sequential data."
+        },
+        {
+          "id": "node_5",
+          "label": "Self-Attention",
+          "type": "method",
+          "description": "A type of attention mechanism that allows models to attend to all positions in the input sequence simultaneously."
+        },
+        {
+          "id": "node_6",
+          "label": "Multi-Head Attention",
+          "type": "method",
+          "description": "A variant of self-attention that uses multiple attention heads to jointly attend to information from different representation subspaces."
+        },
+        {
+          "id": "node_7",
+          "label": "Scaled Dot-Product Attention",
+          "type": "method",
+          "description": "A type of self-attention mechanism that uses dot products to compute attention weights."
+        },
+        {
+          "id": "node_8",
+          "label": "Positional Encoding",
+          "type": "method",
+          "description": "A technique that adds positional information to the input sequence to help the model understand the order of the elements."
+        },
+        {
+          "id": "node_9",
+          "label": "Residual Connection",
+          "type": "method",
+          "description": "A technique that adds the input to the output of a layer to help the model learn more complex representations."
+        },
+        {
+          "id": "node_10",
+          "label": "Layer Normalization",
+          "type": "method",
+          "description": "A technique that normalizes the activations of each layer to help the model learn more stable representations."
+        },
+        {
+          "id": "node_11",
+          "label": "WMT 2014 English-to-German Translation Task",
+          "type": "dataset",
+          "description": "A machine translation task that involves translating English text into German."
+        },
+        {
+          "id": "node_12",
+          "label": "WMT 2014 English-to-French Translation Task",
+          "type": "dataset",
+          "description": "A machine translation task that involves translating English text into French."
+        },
+        {
+          "id": "node_13",
+          "label": "BLEU Score",
+          "type": "result",
+          "description": "A metric that measures the quality of machine translation by comparing the output to a reference translation."
+        },
+        {
+          "id": "node_14",
+          "label": "28.4 BLEU Score",
+          "type": "result",
+          "description": "The BLEU score achieved by the Transformer model on the WMT 2014 English-to-German translation task."
+        },
+        {
+          "id": "node_15",
+          "label": "41.0 BLEU Score",
+          "type": "result",
+          "description": "The BLEU score achieved by the Transformer model on the WMT 2014 English-to-French translation task."
+        },
+        {
+          "id": "node_16",
+          "label": "Ashish Vaswani",
+          "type": "entity",
+          "description": "One of the authors of the Transformer paper."
+        },
+        {
+          "id": "node_17",
+          "label": "Noam Shazeer",
+          "type": "entity",
+          "description": "One of the authors of the Transformer paper."
+        },
+        {
+          "id": "node_18",
+          "label": "Niki Parmar",
+          "type": "entity",
+          "description": "One of the authors of the Transformer paper."
+        },
+        {
+          "id": "node_19",
+          "label": "Jakob Uszkoreit",
+          "type": "entity",
+          "description": "One of the authors of the Transformer paper."
+        },
+        {
+          "id": "node_20",
+          "label": "Limitations of Recurrent Neural Networks",
+          "type": "limitation",
+          "description": "The limitations of recurrent neural networks, including their sequential nature and difficulty in parallelizing training examples."
+        },
+        {
+          "id": "node_21",
+          "label": "Future Directions",
+          "type": "application",
+          "description": "The potential future directions for the Transformer architecture, including its application to other natural language processing tasks."
+        },
+        {
+          "id": "node_22",
+          "label": "Related Work",
+          "type": "application",
+          "description": "The related work that inspired the development of the Transformer architecture, including the use of attention mechanisms in sequence modeling and transduction models."
+        },
+        {
+          "id": "node_23",
+          "label": "ConvS2S",
+          "type": "concept",
+          "description": "A neural network architecture that uses convolutional neural networks as basic building blocks to process sequential data."
+        },
+        {
+          "id": "node_24",
+          "label": "ByteNet",
+          "type": "concept",
+          "description": "A neural network architecture that uses convolutional neural networks as basic building blocks to process sequential data."
+        },
+        {
+          "id": "node_25",
+          "label": "Extended Neural GPU",
+          "type": "concept",
+          "description": "A neural network architecture that uses convolutional neural networks as basic building blocks to process sequential data."
+        },
+        {
+          "id": "node_26",
+          "label": "Gated Recurrent Neural Networks",
+          "type": "concept",
+          "description": "A type of recurrent neural network that uses gates to control the flow of information."
+        },
+        {
+          "id": "node_27",
+          "label": "Long Short-Term Memory Networks",
+          "type": "concept",
+          "description": "A type of recurrent neural network that uses memory cells to store information over long periods of time."
+        },
+        {
+          "id": "node_28",
+          "label": "Tensor2Tensor",
+          "type": "method",
+          "description": "A software library that provides a framework for training and evaluating sequence-to-sequence models."
+        },
+        {
+          "id": "node_29",
+          "label": "P100 GPUs",
+          "type": "dataset",
+          "description": "A type of graphics processing unit used for training and evaluating sequence-to-sequence models."
+        },
+        {
+          "id": "node_30",
+          "label": "12 hours",
+          "type": "result",
+          "description": "The amount of time it took to train the Transformer model on the WMT 2014 English-to-German translation task."
+        },
+        {
+          "id": "node_31",
+          "label": "8 GPUs",
+          "type": "dataset",
+          "description": "The number of graphics processing units used to train the Transformer model on the WMT 2014 English-to-German translation task."
+        },
+        {
+          "id": "node_32",
+          "label": "3.5 days",
+          "type": "result",
+          "description": "The amount of time it took to train the Transformer model on the WMT 2014 English-to-French translation task."
+        },
+        {
+          "id": "node_33",
+          "label": "State-of-the-Art Results",
+          "type": "result",
+          "description": "The results achieved by the Transformer model on the WMT 2014 English-to-German and English-to-French translation tasks, which are the best results reported in the literature."
+        },
+        {
+          "id": "node_34",
+          "label": "Ensemble Methods",
+          "type": "concept",
+          "description": "A technique that combines the predictions of multiple models to improve performance."
+        },
+        {
+          "id": "node_35",
+          "label": "Conditional Computation",
+          "type": "concept",
+          "description": "A technique that allows models to condition their predictions on specific inputs or contexts."
+        }
+      ],
+      "edges": [
+        {
+          "source": "node_1",
+          "target": "node_2",
+          "label": "uses",
+          "description": "Sequence transduction models use recurrent neural networks to process sequential data."
+        },
+        {
+          "source": "node_2",
+          "target": "node_3",
+          "label": "uses",
+          "description": "Recurrent neural networks use attention mechanisms to model dependencies between input and output sequences."
+        },
+        {
+          "source": "node_3",
+          "target": "node_4",
+          "label": "uses",
+          "description": "Attention mechanisms are used in the Transformer architecture to draw global dependencies between input and output sequences."
+        },
+        {
+          "source": "node_4",
+          "target": "node_5",
+          "label": "uses",
+          "description": "The Transformer architecture uses self-attention mechanisms to process sequential data."
+        },
+        {
+          "source": "node_5",
+          "target": "node_6",
+          "label": "uses",
+          "description": "Self-attention mechanisms use multiple attention heads to jointly attend to information from different representation subspaces."
+        },
+        {
+          "source": "node_6",
+          "target": "node_7",
+          "label": "uses",
+          "description": "Multi-head attention uses scaled dot-product attention to compute attention weights."
+        },
+        {
+          "source": "node_7",
+          "target": "node_8",
+          "label": "uses",
+          "description": "Scaled dot-product attention uses positional encoding to add positional information to the input sequence."
+        },
+        {
+          "source": "node_8",
+          "target": "node_9",
+          "label": "uses",
+          "description": "Positional encoding uses residual connections to add the input to the output of a layer."
+        },
+        {
+          "source": "node_9",
+          "target": "node_10",
+          "label": "uses",
+          "description": "Residual connections use layer normalization to normalize the activations of each layer."
+        },
+        {
+          "source": "node_10",
+          "target": "node_11",
+          "label": "evaluated_on",
+          "description": "The Transformer model was evaluated on the WMT 2014 English-to-German translation task."
+        },
+        {
+          "source": "node_10",
+          "target": "node_12",
+          "label": "evaluated_on",
+          "description": "The Transformer model was evaluated on the WMT 2014 English-to-French translation task."
+        },
+        {
+          "source": "node_10",
+          "target": "node_13",
+          "label": "results_in",
+          "description": "The Transformer model achieved a BLEU score of 28.4 on the WMT 2014 English-to-German translation task."
+        },
+        {
+          "source": "node_10",
+          "target": "node_14",
+          "label": "results_in",
+          "description": "The Transformer model achieved a BLEU score of 41.0 on the WMT 2014 English-to-French translation task."
+        },
+        {
+          "source": "node_16",
+          "target": "node_17",
+          "label": "collaborated_with",
+          "description": "Ashish Vaswani collaborated with Noam Shazeer on the Transformer paper."
+        },
+        {
+          "source": "node_17",
+          "target": "node_18",
+          "label": "collaborated_with",
+          "description": "Noam Shazeer collaborated with Niki Parmar on the Transformer paper."
+        },
+        {
+          "source": "node_18",
+          "target": "node_19",
+          "label": "collaborated_with",
+          "description": "Niki Parmar collaborated with Jakob Uszkoreit on the Transformer paper."
+        },
+        {
+          "source": "node_20",
+          "target": "node_2",
+          "label": "contradicts",
+          "description": "The limitations of recurrent neural networks contradict the benefits of using attention mechanisms in sequence modeling and transduction models."
+        },
+        {
+          "source": "node_21",
+          "target": "node_4",
+          "label": "applied_to",
+          "description": "The Transformer architecture can be applied to other natural language processing tasks."
+        },
+        {
+          "source": "node_22",
+          "target": "node_3",
+          "label": "compared_with",
+          "description": "The use of attention mechanisms in sequence modeling and transduction models has been compared with other approaches."
+        },
+        {
+          "source": "node_23",
+          "target": "node_24",
+          "label": "compared_with",
+          "description": "ConvS2S and ByteNet have been compared with other sequence modeling and transduction models."
+        },
+        {
+          "source": "node_25",
+          "target": "node_26",
+          "label": "compared_with",
+          "description": "Extended Neural GPU has been compared with other sequence modeling and transduction models."
+        },
+        {
+          "source": "node_27",
+          "target": "node_28",
+          "label": "uses",
+          "description": "Long short-term memory networks use tensor2tensor to process sequential data."
+        },
+        {
+          "source": "node_28",
+          "target": "node_29",
+          "label": "uses",
+          "description": "Tensor2Tensor uses P100 GPUs to process sequential data."
+        },
+        {
+          "source": "node_29",
+          "target": "node_30",
+          "label": "results_in",
+          "description": "The Transformer model was trained on 12 hours using 8 GPUs."
+        },
+        {
+          "source": "node_29",
+          "target": "node_31",
+          "label": "results_in",
+          "description": "The Transformer model was trained on 8 GPUs."
+        },
+        {
+          "source": "node_29",
+          "target": "node_32",
+          "label": "results_in",
+          "description": "The Transformer model was trained on 3.5 days using 8 GPUs."
+        },
+        {
+          "source": "node_33",
+          "target": "node_10",
+          "label": "results_in",
+          "description": "The Transformer model achieved state-of-the-art results on the WMT 2014 English-to-German and English-to-French translation tasks."
+        },
+        {
+          "source": "node_34",
+          "target": "node_10",
+          "label": "compared_with",
+          "description": "Ensemble methods have been compared with the Transformer model."
+        },
+        {
+          "source": "node_35",
+          "target": "node_10",
+          "label": "compared_with",
+          "description": "Conditional computation has been compared with the Transformer model."
+        }
+      ],
+      "metadata": {
+        "paper_title": "Attention Is All You Need",
+        "node_count": 35,
+        "edge_count": 29
+      }
+    },
+    "architecture_deep_dive": {
+      "error": "Rate limit exceeded. Please wait a few minutes and try again."
+    },
+    "model_file": "import torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass Transformer(nn.Module):\n    '''\n    The Transformer model architecture.\n\n    Args:\n        num_layers (int): Number of layers in the encoder and decoder.\n        num_heads (int): Number of attention heads.\n        embedding_dim (int): Dimension of the embedding space.\n        input_dim (int): Dimension of the input sequence.\n        output_dim (int): Dimension of the output sequence.\n\n    Input shape: (batch_size, seq_len, input_dim)\n    Output shape: (batch_size, seq_len, output_dim)\n    '''\n    def __init__(self, num_layers=6, num_heads=8, embedding_dim=512, input_dim=512, output_dim=512):\n        super(Transformer, self).__init__()\n        self.encoder = Encoder(num_layers, num_heads, embedding_dim, input_dim)\n        self.decoder = Decoder(num_layers, num_heads, embedding_dim, output_dim)\n\n    def forward(self, x):\n        # [batch, seq_len, input_dim] -> [batch, seq_len, embedding_dim]\n        # e.g. [1, 10, 512] -> [1, 10, 512]\n        encoded_x = self.encoder(x)\n        # [batch, seq_len, embedding_dim] -> [batch, seq_len, output_dim]\n        # e.g. [1, 10, 512] -> [1, 10, 512]\n        output = self.decoder(encoded_x)\n        return output\n\n\nclass Encoder(nn.Module):\n    '''\n    The encoder module.\n\n    Args:\n        num_layers (int): Number of layers in the encoder.\n        num_heads (int): Number of attention heads.\n        embedding_dim (int): Dimension of the embedding space.\n        input_dim (int): Dimension of the input sequence.\n\n    Input shape: (batch_size, seq_len, input_dim)\n    Output shape: (batch_size, seq_len, embedding_dim)\n    '''\n    def __init__(self, num_layers, num_heads, embedding_dim, input_dim):\n        super(Encoder, self).__init__()\n        self.layers = nn.ModuleList([EncoderLayer(num_heads, embedding_dim) for _ in range(num_layers)])\n        self.embedding = nn.Linear(input_dim, embedding_dim)\n\n    def forward(self, x):\n        # [batch, seq_len, input_dim] -> [batch, seq_len, embedding_dim]\n        # e.g. [1, 10, 512] -> [1, 10, 512]\n        x = self.embedding(x)\n        for layer in self.layers:\n            # [batch, seq_len, embedding_dim] -> [batch, seq_len, embedding_dim]\n            # e.g. [1, 10, 512] -> [1, 10, 512]\n            x = layer(x)\n        return x\n\n\nclass EncoderLayer(nn.Module):\n    '''\n    A single layer in the encoder.\n\n    Args:\n        num_heads (int): Number of attention heads.\n        embedding_dim (int): Dimension of the embedding space.\n\n    Input shape: (batch_size, seq_len, embedding_dim)\n    Output shape: (batch_size, seq_len, embedding_dim)\n    '''\n    def __init__(self, num_heads, embedding_dim):\n        super(EncoderLayer, self).__init__()\n        self.self_attn = MultiHeadAttention(num_heads, embedding_dim)\n        self.feed_forward = nn.Linear(embedding_dim, embedding_dim)\n\n    def forward(self, x):\n        # [batch, seq_len, embedding_dim] -> [batch, seq_len, embedding_dim]\n        # e.g. [1, 10, 512] -> [1, 10, 512]\n        x = self.self_attn(x)\n        # [batch, seq_len, embedding_dim] -> [batch, seq_len, embedding_dim]\n        # e.g. [1, 10, 512] -> [1, 10, 512]\n        x = self.feed_forward(x)\n        return x\n\n\nclass MultiHeadAttention(nn.Module):\n    '''\n    Multi-head attention mechanism.\n\n    Args:\n        num_heads (int): Number of attention heads.\n        embedding_dim (int): Dimension of the embedding space.\n\n    Input shape: (batch_size, seq_len, embedding_dim)\n    Output shape: (batch_size, seq_len, embedding_dim)\n    '''\n    def __init__(self, num_heads, embedding_dim):\n        super(MultiHeadAttention, self).__init__()\n        self.query_linear = nn.Linear(embedding_dim, embedding_dim)\n        self.key_linear = nn.Linear(embedding_dim, embedding_dim)\n        self.value_linear = nn.Linear(embedding_dim, embedding_dim)\n        self.dropout = nn.Dropout(0.1)\n\n    def forward(self, x):\n        # [batch, seq_len, embedding_dim] -> [batch, seq_len, embedding_dim]\n        # e.g. [1, 10, 512] -> [1, 10, 512]\n        Q = self.query_linear(x)\n        K = self.key_linear(x)\n        V = self.value_linear(x)\n        # [batch, seq_len, embedding_dim] -> [batch, seq_len, embedding_dim]\n        # e.g. [1, 10, 512] -> [1, 10, 512]\n        attention = torch.matmul(Q, K.T) / math.sqrt(Q.size(-1))\n        attention = F.softmax(attention, dim=-1)\n        # [batch, seq_len, embedding_dim] -> [batch, seq_len, embedding_dim]\n        # e.g. [1, 10, 512] -> [1, 10, 512]\n        output = torch.matmul(attention, V)\n        output = self.dropout(output)\n        return output\n\n\nclass Decoder(nn.Module):\n    '''\n    The decoder module.\n\n    Args:\n        num_layers (int): Number of layers in the decoder.\n        num_heads (int): Number of attention heads.\n        embedding_dim (int): Dimension of the embedding space.\n        output_dim (int): Dimension of the output sequence.\n\n    Input shape: (batch_size, seq_len, embedding_dim)\n    Output shape: (batch_size, seq_len, output_dim)\n    '''\n    def __init__(self, num_layers, num_heads, embedding_dim, output_dim):\n        super(Decoder, self).__init__()\n        self.layers = nn.ModuleList([DecoderLayer(num_heads, embedding_dim) for _ in range(num_layers)])\n        self.embedding = nn.Linear(embedding_dim, output_dim)\n\n    def forward(self, x):\n        # [batch, seq_len, embedding_dim] -> [batch, seq_len, output_dim]\n        # e.g. [1, 10, 512] -> [1, 10, 512]\n        for layer in self.layers:\n            # [batch, seq_len, embedding_dim] -> [batch, seq_len, embedding_dim]\n            # e.g. [1, 10, 512] -> [1, 10, 512]\n            x = layer(x)\n        # [batch, seq_len, embedding_dim] -> [batch, seq_len, output_dim]\n        # e.g. [1, 10, 512] -> [1, 10, 512]\n        x = self.embedding(x)\n        return x\n\n\nclass DecoderLayer(nn.Module):\n    '''\n    A single layer in the decoder.\n\n    Args:\n        num_heads (int): Number of attention heads.\n        embedding_dim (int): Dimension of the embedding space.\n\n    Input shape: (batch_size, seq_len, embedding_dim)\n    Output shape: (batch_size, seq_len, embedding_dim)\n    '''\n    def __init__(self, num_heads, embedding_dim):\n        super(DecoderLayer, self).__init__()\n        self.self_attn = MultiHeadAttention(num_heads, embedding_dim)\n        self.encoder_attn = MultiHeadAttention(num_heads, embedding_dim)\n        self.feed_forward = nn.Linear(embedding_dim, embedding_dim)\n\n    def forward(self, x):\n        # [batch, seq_len, embedding_dim] -> [batch, seq_len, embedding_dim]\n        # e.g. [1, 10, 512] -> [1, 10, 512]\n        x = self.self_attn(x)\n        # [batch, seq_len, embedding_dim] -> [batch, seq_len, embedding_dim]\n        # e.g. [1, 10, 512] -> [1, 10, 512]\n        x = self.encoder_attn(x)\n        # [batch, seq_len, embedding_dim] -> [batch, seq_len, embedding_dim]\n        # e.g. [1, 10, 512] -> [1, 10, 512]\n        x = self.feed_forward(x)\n        return x\n\n\nif __name__ == \"__main__\":\n    import math\n    model = Transformer()\n    input_seq = torch.randn(1, 10, 512)\n    output = model(input_seq)\n    print(output.shape)"
+  }
+}
